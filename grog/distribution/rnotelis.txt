@@ -1,0 +1,73 @@
+./
+-   1         796  Makefile
+d   2         512  RCS
+d   2         512  distributions
+d   3         512  forms
+d   2         512  include
+d   3         512  kshscripts
+-   1           0  mklog
+d   3         512  sqlscripts
+d   2         512  src
+d   3         512  textfiles
+d   2         512  tmp
+
+./distributions:
+
+./forms:
+-   1         227  Makefile
+d   2         512  RCS
+-   1        1430  add_synonym.frm
+-   1        2118  add_synonym.inp
+-   1       10319  grogmethod.frm
+-   1        9449  grogmethod.inp
+
+./include:
+-   2         674  grog.h
+
+./kshscripts:
+-   1         298  Makefile
+d   2         512  RCS
+-   1         175  crch.sh
+-   1         273  crcl.sh
+-   1         218  crm.sh
+-   1         246  delcl.sh
+-   1         272  delm.sh
+-   1         192  describe.sh
+-   1        3054  dmpc.sh
+-   1        5050  dmpd.sh
+-   1        8893  dmpm.sh
+-   1        2178  example.sh
+-   1        1959  grogexp.sh
+-   1         125  install.sh
+-   1         176  showcl.sh
+-   1         259  showm.sh
+-   1         174  uninstall.sh
+
+./sqlscripts:
+-   1         173  Makefile
+d   2         512  RCS
+-   1         175  grog.sql
+
+./src:
+
+./textfiles:
+-   1         183  Makefile
+d   2         512  RCS
+-   1         674  grog.h
+-   1        2732  grogmk.man
+-   1        4240  grogsqlc.txt
+
+./tmp:
+-   1           0  copy
+-   1           0  declare
+-   1         939  del_file
+-   1           1  meta
+-   1         359  metav
+-   1           0  methods
+-   1           0  name
+-   1         599  print_members
+-   1           0  reference
+-   1           0  valdatecalls
+-   1           0  vconstructs
+-   1           0  vdefs
+-   1           0  vmembers

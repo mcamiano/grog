@@ -1,0 +1,25 @@
+#include "slulisting.h"
+#include <stdlib.h>
+#include <stdio.h>
+EXEC SQL INCLUDE sqlca;
+#include "grog.h"
+
+main()
+{
+  t_slulisting *mylisting=(*slulisting.construct)();
+
+	strcpy( mylisting->nmsur, "My NMSUR" );
+	strcpy( mylisting->nmsub, "My NMSUB" );
+
+	(*(mylisting->print))(mylisting);
+	SKIPLINE;
+	SKIPLINE;
+
+	strcpy( mylisting->nmsur, "Your NMSUR" );
+	strcpy( mylisting->nmsub, "Your NMSUB" );
+
+	(*(mylisting->print))(mylisting);
+	SKIPLINE;
+	SKIPLINE;
+}
+

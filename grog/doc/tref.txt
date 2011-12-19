@@ -1,0 +1,572 @@
+GROG Technical Reference Manual
+
+Copyright 1993 by Mitch C. Amiano
+All Rights Reserved
+
+
+
+GROG - Generalized Relational Object Generator
+Copyright 1993 by Mitch C. Amiano
+All Rights Reserved
+
+I. Manual Pages
+
+
+
+NAME
+     grogexp - export GROG object definitions
+
+SYNOPSIS
+     grogexp username/password [options] 
+
+DESCRIPTION
+     grogexp reads existing GROG object declaration tables and creates
+     source code files corresponding to the objects.
+
+
+OPTIONS
+     username/password
+	a valid Oracle connection name and password
+
+     -nms
+         no method stubs; do not generate the C source code output
+         for declared methods.  Useful if you have defined the 
+         methods in a library or other source code file.
+
+
+FILES
+     ${TMP_DIR}/*
+         files in the $TMP_DIR is used to hold several intermediate lists, 
+         including names of methods, variable lists, and data members.
+
+ENVIRONMENT
+     The following variable settings are provided in the grogexp.sh file,
+     near the beginning of that file.  Treat them with caution - changing 
+     them erratically can have, well, erratic results.  It is strongly 
+     suggested that other settings, located near these, be left alone.
+
+         GROG_RET_TYPE="int" 
+              The default C return type generated when a user method lacks one.
+
+         HEADER_PATH="./include"
+              The location of exported C header files.
+
+         HEADER_SUFFIX=".h"
+              The suffix of exported C header files.
+
+         SOURCE_PATH="./src"
+              The location of exported C source files.
+
+         SOURCE_SUFFIX=".pc"
+              The suffix of exported C source files.
+
+         TMP_DIR="./tmp"
+              The location of intermediate files generated during exports.
+
+DIAGNOSTICS
+
+     Exporting ... for ... error: 
+
+         Unless you have declared a class named "error", this usually 
+         means that there is a problem in accessing the database.
+         Make sure the server is running.  Also make sure the proper
+         GROG database objects are configured, as when they are installed.
+
+     Warning: target files exist - remove before attempting export.                  
+     Files: ./src/xxxxxx.pc ./include/xxxxxx.h
+
+         One or both of the named files are present in the named 
+         subdirectories.  If the subdirectories belong to GROG,
+         you have the opportunity to check the files in question
+         and remove or move them as necessary.  If the "src" or 
+         "include" directories are independant of GROG, you may
+         want to change the SOURCE_PATH and HEADER_PATH settings
+         or change your current working directory to eliminate
+         the conflicts.
+
+
+IDENTIFICATION
+     Author: Mitch C. Amiano
+     Revision Number: 1.0; Release Date: 1993/08/30.
+     Copyright 1993 by Mitch C. Amiano.
+
+SEE ALSO
+     GROG User Guide
+     GROG Technical Reference Manual
+     GROG Release Notice
+
+LIMITATIONS AND KNOWN BUGS
+     Temporary files are used.  If multiple invocations of grogexp
+     are made in the same working directory, the use of the temporary
+     files will conflict, leading to anomalous output.
+
+     The exporter relies heavily on assumptions made about the Oracle
+     database environment, especially of the privacy of SYNONYM and
+     VIEW database objects.  This may make porting to other databases
+     difficult.
+
+     When a choice must be made in designing the generated code protocol,
+     whether to optimize time or code size, the decision was always to
+     decrease the complexity of the exporter instead.  This leads to 
+     bogusly large statically compiled sections of output source code.
+     A better approach might have been to defer some of the OO handling
+     until runtime, using dynamically allocated structures and arrays.
+
+
+
+NAME
+     crch.sh - create an Oracle connection for class hierarchy organization
+
+SYNOPSIS
+     crch.sh username/password application_name
+
+DESCRIPTION
+     crch.sh is a trivial script which uses the Oracle CONNECT statement to create a 
+     user account name, which can be used to provide scoping capabilities for use
+     by other GROG scripts.
+
+
+OPTIONS
+     username/password
+	a valid Oracle connection name and password
+
+     application_name
+	A name of a GROG application
+
+FILES
+
+ENVIRONMENT
+
+DIAGNOSTICS
+
+IDENTIFICATION
+     Author: Mitch C. Amiano
+     Revision Number: 1.0; Release Date: 1993/08/30.
+     Copyright 1993 by Mitch C. Amiano.
+
+SEE ALSO
+     GROG User Guide
+     GROG Technical Reference Manual
+     GROG Release Notice
+
+LIMITATIONS AND KNOWN BUGS
+
+
+
+NAME
+     crcl.sh - declare a GROG class
+
+SYNOPSIS
+     crcl.sh username/password class_name base_table_name
+
+DESCRIPTION
+     crcl.sh creates an Oracle SYNONYM for a base table under the named Oracle user
+     connection.  The name is thereafter recognized as a declared GROG class.
+
+OPTIONS
+     username/password
+	a valid Oracle connection name and password
+
+     class_name
+	The name of the GROG class to be declared
+
+     base_table
+	The name of a table, view, or synonym available publically or privately to the 
+	named Oracle connection.
+
+FILES
+
+ENVIRONMENT
+
+DIAGNOSTICS
+
+IDENTIFICATION
+     Author: Mitch C. Amiano
+     Revision Number: 1.0; Release Date: 1993/08/30.
+     Copyright 1993 by Mitch C. Amiano.
+
+SEE ALSO
+     GROG User Guide
+     GROG Technical Reference Manual
+     GROG Release Notice
+
+LIMITATIONS AND KNOWN BUGS
+
+NAME
+     crm.sh - declare a GROG method
+
+SYNOPSIS
+     crm.sh username/password class_name method_name method_data_type
+
+DESCRIPTION
+     crm.sh inserts a record into the GROGMETHOD table, which is used when
+     exporting GROG class definitions.
+
+OPTIONS
+     username/password
+	a valid Oracle connection name and password
+
+     class_name
+	The name of the GROG class to be declared
+
+     method_name
+	The name of the method to be declared
+
+     method_data_type
+	The data type of the new method, either as a predefined GROG type, a 
+	user defined GROG class, or a C data type
+
+FILES
+
+ENVIRONMENT
+
+DIAGNOSTICS
+
+IDENTIFICATION
+     Author: Mitch C. Amiano
+     Revision Number: 1.0; Release Date: 1993/08/30.
+     Copyright 1993 by Mitch C. Amiano.
+
+SEE ALSO
+     GROG User Guide
+     GROG Technical Reference Manual
+     GROG Release Notice
+
+LIMITATIONS AND KNOWN BUGS
+
+
+NAME
+     dmpc.sh - dump class declaration
+
+SYNOPSIS
+     . dmpc.sh class_name
+
+DESCRIPTION
+     dmpc.sh is used to define a shell function used by the grogexp script.
+     It is not intended for independant use.
+
+
+OPTIONS
+     class_name
+	A name of a declared GROG class
+
+FILES
+
+ENVIRONMENT
+
+DIAGNOSTICS
+
+IDENTIFICATION
+     Author: Mitch C. Amiano
+     Revision Number: 1.0; Release Date: 1993/08/30.
+     Copyright 1993 by Mitch C. Amiano.
+
+SEE ALSO
+     GROG User Guide
+     GROG Technical Reference Manual
+     GROG Release Notice
+
+LIMITATIONS AND KNOWN BUGS
+
+
+NAME
+     dmpd.sh - dump class data members
+
+SYNOPSIS
+     . dmpd.sh class_name
+
+DESCRIPTION
+     dmpd.sh is used to define a shell function used by the grogexp script.
+     It is not intended for independant use.
+
+
+OPTIONS
+     class_name
+	A name of a declared GROG class
+
+FILES
+
+ENVIRONMENT
+
+DIAGNOSTICS
+
+IDENTIFICATION
+     Author: Mitch C. Amiano
+     Revision Number: 1.0; Release Date: 1993/08/30.
+     Copyright 1993 by Mitch C. Amiano.
+
+SEE ALSO
+     GROG User Guide
+     GROG Technical Reference Manual
+     GROG Release Notice
+
+LIMITATIONS AND KNOWN BUGS
+     
+
+NAME
+     dmpm.sh - dump class method members
+
+SYNOPSIS
+     . dmpm.sh class_name
+
+DESCRIPTION
+     dmpm.sh is used to define a shell function used by the grogexp script.
+     It is not intended for independant use.
+
+
+OPTIONS
+     class_name
+	A name of a declared GROG class
+
+FILES
+
+ENVIRONMENT
+
+DIAGNOSTICS
+
+IDENTIFICATION
+     Author: Mitch C. Amiano
+     Revision Number: 1.0; Release Date: 1993/08/30.
+     Copyright 1993 by Mitch C. Amiano.
+
+SEE ALSO
+     GROG User Guide
+     GROG Technical Reference Manual
+     GROG Release Notice
+
+LIMITATIONS AND KNOWN BUGS
+
+
+NAME
+     showcl.sh username/password 
+
+SYNOPSIS
+     showcl.sh - show a list of declared GROG classes
+
+DESCRIPTION
+     showcl.sh performs a SQL SELECT on the USER_SYNONYMS table under the
+     given Oracle user connection, showing the GROG classes which are available
+     for export.
+
+OPTIONS
+     username/password
+	a valid Oracle connection name and password
+
+FILES
+
+ENVIRONMENT
+
+DIAGNOSTICS
+
+IDENTIFICATION
+     Author: Mitch C. Amiano
+     Revision Number: 1.0; Release Date: 1993/08/30.
+     Copyright 1993 by Mitch C. Amiano.
+
+SEE ALSO
+     GROG User Guide
+     GROG Technical Reference Manual
+     GROG Release Notice
+
+LIMITATIONS AND KNOWN BUGS
+
+
+
+NAME
+     showm.sh username/password class_name
+
+SYNOPSIS
+     showm.sh - show a list of GROG methods declared for a given GROG class
+
+DESCRIPTION
+     showm.sh performs a SQL SELECT on the GROGMETHOD table, to show
+     the GROG methods available for export for a given GROG class, with
+     their associated C return code types.
+
+OPTIONS
+     username/password
+	a valid Oracle connection name and password
+
+     class_name
+	The name of the GROG class to be declared
+
+FILES
+
+ENVIRONMENT
+
+DIAGNOSTICS
+
+IDENTIFICATION
+     Author: Mitch C. Amiano
+     Revision Number: 1.0; Release Date: 1993/08/30.
+     Copyright 1993 by Mitch C. Amiano.
+
+SEE ALSO
+     GROG User Guide
+     GROG Technical Reference Manual
+     GROG Release Notice
+
+LIMITATIONS AND KNOWN BUGS
+
+
+
+
+
+
+II. GROG/SQL-C Temporary Files
+
+The following files are opened as on-disk temporary storage spaces, 
+as an implimentation artifact from the use of shell scripts and "sed"
+macros.
+
+Under normal circumstances, the user will not need to refer to these 
+files.  However, they are useful when attempting to trace back
+anomalously generated code fragments.
+
+All the temporary files listed here:
+   - are placed into the "$TMP_DIR" directory,
+   - are removed and recreated for each invocation of the GROG exporter,
+   - cannot be used with multiple invocations of the GROG exporter.
+   - would disappear if GROG was (re)written.
+
+   copy
+   declare
+   del_file
+   meta
+   metav
+   methods
+   name
+   print_members
+   reference
+   valdatecalls
+   vconstructs
+   vdefs
+   vmembers
+
+
+III. GROG/SQL-C Code Generation Protocal
+
+This chapter is a reference to the GROG protocol as used for an embedded-SQL
+in C language precompiler.  It first describes the directory structure of 
+instantiated GROG objects, then gives an abstracted outline of each of the 
+files associated with an instantiated GROG object.
+
+
+The directory structure
+
+All objects instantiated by the GROG/SQL-C exporter consist of two, and only
+two, operating system flat files: a '.h' header file and a '.c', '.pc' or a 
+'.ec' source code file.  The file name extensions are irrelevant, since they
+are user-configurable.
+
+For a GROG object named "customer", assuming the use of '.h' and '.c' 
+extensions, the GROG/SQL-C exporter would create a header file and a source
+code file, named "customer.h" and "customer.c" respectively.
+
+All GROG/SQL-C export files are placed into target directories as specified 
+by the default or user-configuration.  The default for header files is
+"./include", while the default for source code files is "./src".
+
+The default hierarchy generated by GROG/SQL-C, assuming the default settings
+and source code extentions of ".c", and two GROG objects named "customer" 
+and "product", would appear as follows:
+
+	./include
+		customer.h
+		product.h
+
+	./src
+		customer.c
+		product.c
+
+One last note pertaining to the file locations.  The GROG/SQL-C exported 
+sources rely upon a number of predefined macros, manifest constants, and 
+type definitions.  The definitions for these constructs are held in a
+predefined header file, named "grog.h", which is included in the GROG/SQL-C
+package.  It may be copied to the header file target directory if desired,
+but by default remains with the files in the GROG/SQL-C package.  It must
+be present in a "#include" path in order for the precompiler to find it.
+
+
+
+IV. GROG/SQL-C file outlines
+
+1. The file outlines included below use the following phrases and words to
+describe commonly used C language programming constructs.
+
+   Term             Usage
+	---------------- ----------------------------------------------------
+	C-Comment        A legal C language comment, using /* and */
+   (note)           A note on the meaning and/or content of a construct
+	C-Include-Directives   A C #include preprocessor directive
+	SQL-Include-Directives   A E/SQL EXEC SQL include preprocessor directive
+	Include-Wrapper  A C preprocessor #ifndef/#define/#endif construct to
+						  prevent redefinition of multiply-included headers. 
+   C-Definition     A struct, union, enum, or typedef
+   C-Declaration    An exported variable, or typedef.
+
+
+2. Structure of exported object header files
+
+   
+   Beginning-of-File
+
+   Include-Wrapper
+
+   C-Comment   ( GROG_general_title + generation_date )
+
+   C-Include-Directives   ( GROG_common_header_file )
+
+   C-Comment   ( GROG_class_specific_title )
+
+   C-Definition   (struct_for_class_definition+data_member_declarations
+		+internal_member_declarations+method_member_declarations
+		+typdef_alias)
+
+   C-Declaration   (exported_class_name)
+
+   End-of-File
+
+
+3. Structure of exported object source code files
+
+   Beginning-of-File
+
+   C-Comment   ( GROG_general_title + generation_date )
+
+   C-Comment   ( GROG_class_specific_title )
+
+   C-Comment   ( Include_Directives_not_placed )
+
+   C-Include-Directives   ( GROG_include + 
+		base_class_include + ...  + class_include )
+
+   SQL-Include-Directives
+
+   C-Comment   ( other_header_files_placed_here )
+
+   C-Comment   ( validator_methods_placed_here )
+
+   C-Comment   ( prologue to each data-member-validator-function )
+	data-member-validate-function-definitions
+
+   C-Comment   ( prologue to object-validator-function )
+	object-validate-function-definition
+
+   C-Comment   ( prologue to object-insertor-function )
+	object-insertor-function-definition
+
+   C-Comment   ( prologue to object-deletor-function )
+	object-deletor-function-definition
+
+   C-Comment   ( prologue to object-destructor-function )
+	object-destructor-function-definition
+
+   C-Comment   ( prologue to object-constructor-function )
+	object-constructor-function-definition
+
+   C-Comment   ( meta-object declaration, definition, and initialization )
+	meta-object-defition-initialization
+
+   End-of-File
+

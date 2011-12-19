@@ -1,0 +1,1857 @@
+   /*
+    * Grog Class Definition File 
+    * Dated: 08/05/93
+    */
+
+   /*
+    * Class: slulisting
+    */
+
+/* Ignored base-table 'smsr.listing' for #include */
+#include "slulisting.h"
+#include <stdlib.h>
+#include <stdio.h>
+EXEC SQL INCLUDE sqlca;   
+	/*
+	 * SQL/C Precompiler needs at least one global declaration block
+	 *   to avoid a bug which causes 'undeclared reference' errors.
+	 */
+EXEC SQL BEGIN DECLARE SECTION;
+	static char *grogclassname="slulisting";
+EXEC SQL END DECLARE SECTION;
+
+#include "grog.h"
+
+   /*
+    * INCLUDE OTHER HEADER FILES HERE
+    */
+
+   /*
+    * Validators for members of objects of type t_slulisting
+    */
+
+   /*
+    * Method to validate style member
+    */
+
+t_GrogReturnCode t_slulisting_style_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rank member
+    */
+
+t_GrogReturnCode t_slulisting_rank_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate fpi member
+    */
+
+t_GrogReturnCode t_slulisting_fpi_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate govlev member
+    */
+
+t_GrogReturnCode t_slulisting_govlev_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rectyp member
+    */
+
+t_GrogReturnCode t_slulisting_rectyp_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate list member
+    */
+
+t_GrogReturnCode t_slulisting_list_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate wpdc member
+    */
+
+t_GrogReturnCode t_slulisting_wpdc_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate reprint member
+    */
+
+t_GrogReturnCode t_slulisting_reprint_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate telno member
+    */
+
+t_GrogReturnCode t_slulisting_telno_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rspos member
+    */
+
+t_GrogReturnCode t_slulisting_rspos_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate nstel member
+    */
+
+t_GrogReturnCode t_slulisting_nstel_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate srvof member
+    */
+
+t_GrogReturnCode t_slulisting_srvof_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate srvno member
+    */
+
+t_GrogReturnCode t_slulisting_srvno_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate srvdt member
+    */
+
+t_GrogReturnCode t_slulisting_srvdt_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate nmsur member
+    */
+
+t_GrogReturnCode t_slulisting_nmsur_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate nmsub member
+    */
+
+t_GrogReturnCode t_slulisting_nmsub_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate title member
+    */
+
+t_GrogReturnCode t_slulisting_title_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate lineage member
+    */
+
+t_GrogReturnCode t_slulisting_lineage_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate honor member
+    */
+
+t_GrogReturnCode t_slulisting_honor_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate busdsc member
+    */
+
+t_GrogReturnCode t_slulisting_busdsc_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate house member
+    */
+
+t_GrogReturnCode t_slulisting_house_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate bldno member
+    */
+
+t_GrogReturnCode t_slulisting_bldno_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate bldpre member
+    */
+
+t_GrogReturnCode t_slulisting_bldpre_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate bldpost member
+    */
+
+t_GrogReturnCode t_slulisting_bldpost_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate str member
+    */
+
+t_GrogReturnCode t_slulisting_str_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate strpre member
+    */
+
+t_GrogReturnCode t_slulisting_strpre_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate strtyp member
+    */
+
+t_GrogReturnCode t_slulisting_strtyp_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate strpost member
+    */
+
+t_GrogReturnCode t_slulisting_strpost_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate fullcom member
+    */
+
+t_GrogReturnCode t_slulisting_fullcom_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate state member
+    */
+
+t_GrogReturnCode t_slulisting_state_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate zip member
+    */
+
+t_GrogReturnCode t_slulisting_zip_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate fft member
+    */
+
+t_GrogReturnCode t_slulisting_fft_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate county member
+    */
+
+t_GrogReturnCode t_slulisting_county_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate effst member
+    */
+
+t_GrogReturnCode t_slulisting_effst_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate ifn member
+    */
+
+t_GrogReturnCode t_slulisting_ifn_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate notyp member
+    */
+
+t_GrogReturnCode t_slulisting_notyp_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate status member
+    */
+
+t_GrogReturnCode t_slulisting_status_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate origin member
+    */
+
+t_GrogReturnCode t_slulisting_origin_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate priority member
+    */
+
+t_GrogReturnCode t_slulisting_priority_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate lstmod member
+    */
+
+t_GrogReturnCode t_slulisting_lstmod_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate setmod member
+    */
+
+t_GrogReturnCode t_slulisting_setmod_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate senddt member
+    */
+
+t_GrogReturnCode t_slulisting_senddt_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate set_id member
+    */
+
+t_GrogReturnCode t_slulisting_set_id_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate mem_id member
+    */
+
+t_GrogReturnCode t_slulisting_mem_id_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate child_id member
+    */
+
+t_GrogReturnCode t_slulisting_child_id_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate par_id member
+    */
+
+t_GrogReturnCode t_slulisting_par_id_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate modified member
+    */
+
+t_GrogReturnCode t_slulisting_modified_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate processed member
+    */
+
+t_GrogReturnCode t_slulisting_processed_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate op_id member
+    */
+
+t_GrogReturnCode t_slulisting_op_id_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rank1_parent member
+    */
+
+t_GrogReturnCode t_slulisting_rank1_parent_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rank2_parent member
+    */
+
+t_GrogReturnCode t_slulisting_rank2_parent_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rank3_parent member
+    */
+
+t_GrogReturnCode t_slulisting_rank3_parent_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rank4_parent member
+    */
+
+t_GrogReturnCode t_slulisting_rank4_parent_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rank5_parent member
+    */
+
+t_GrogReturnCode t_slulisting_rank5_parent_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rank6_parent member
+    */
+
+t_GrogReturnCode t_slulisting_rank6_parent_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rank7_parent member
+    */
+
+t_GrogReturnCode t_slulisting_rank7_parent_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate rank8_parent member
+    */
+
+t_GrogReturnCode t_slulisting_rank8_parent_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate index_name member
+    */
+
+t_GrogReturnCode t_slulisting_index_name_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate index_str member
+    */
+
+t_GrogReturnCode t_slulisting_index_str_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate tcid member
+    */
+
+t_GrogReturnCode t_slulisting_tcid_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate class member
+    */
+
+t_GrogReturnCode t_slulisting_class_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate special member
+    */
+
+t_GrogReturnCode t_slulisting_special_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate cna member
+    */
+
+t_GrogReturnCode t_slulisting_cna_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate nts member
+    */
+
+t_GrogReturnCode t_slulisting_nts_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate abrcom member
+    */
+
+t_GrogReturnCode t_slulisting_abrcom_is_valid( object )
+{
+   t_GrogReturnCode returnCode = (t_GrogReturnCode) GROG_SUCCESS;
+
+   return( returnCode );
+}
+
+
+   /*
+    * Validator(s) for member inter-relationships
+	 * 
+	 *  The GROG coding protocol calls for highly cohesive functions.
+	 *  With respect to the coding of this file, placing code fragments
+	 *  associated with multiple object members into any (and/or only)
+	 *  one of the involved member's validator-method is considered 
+	 *  !DENORMALIZED CODE!   The rule is, don't do it.
+	 * 
+	 *  For each relationship to be asserted, enforced, or constrained,
+	 *  write a validator-method for it.
+	 *  Use the same conventions as for data-member-validator-methods,
+	 *  and place references to the new method into the object-validator-method.
+	 * 
+	 *  Obviously, this is a design area of OOA which could supported
+	 *  much in the same was as methods - with export facilities and 
+	 *  a definition table.  I don't have the time.  A stub follows.
+    */
+
+#ifdef GROG_RELATIONSHIPS_SUPPORTED
+t_GrogReturnCode t_slulisting_{RELATIONSHIP_NAME}_is_valid( object )
+t_slulisting *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_SUCCESS;
+
+   return(returnCode);
+}
+#endif
+
+   /*
+    * Validator for objects of type t_slulisting
+    */
+
+t_GrogReturnCode t_slulisting_is_valid( object )
+t_slulisting *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_SUCCESS;
+
+   switch (1)
+   {
+	case 1:
+      returnCode = object->style_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rank_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->fpi_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->govlev_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rectyp_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->list_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->wpdc_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->reprint_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->telno_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rspos_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->nstel_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->srvof_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->srvno_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->srvdt_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->nmsur_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->nmsub_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->title_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->lineage_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->honor_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->busdsc_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->house_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->bldno_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->bldpre_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->bldpost_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->str_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->strpre_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->strtyp_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->strpost_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->fullcom_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->state_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->zip_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->fft_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->county_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->effst_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->ifn_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->notyp_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->status_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->origin_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->priority_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->lstmod_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->setmod_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->senddt_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->set_id_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->mem_id_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->child_id_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->par_id_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->modified_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->processed_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->op_id_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rank1_parent_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rank2_parent_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rank3_parent_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rank4_parent_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rank5_parent_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rank6_parent_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rank7_parent_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->rank8_parent_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->index_name_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->index_str_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->tcid_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->class_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->special_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->cna_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->nts_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+      returnCode = object->abrcom_is_valid();
+      if ( returnCode != GROG_SUCCESS ) break;
+   default:
+      returnCode=GROG_SUCCESS;
+   break;
+   }
+
+   return(returnCode);
+}
+
+
+   /*
+    * Printer for objects of type t_slulisting
+    */
+
+t_GrogReturnCode t_slulisting_print( object )
+t_slulisting *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_SUCCESS;
+
+   printf("%*.*s", sizeof(object->style), sizeof(object->style), object->style );
+   printf("%*.*s", sizeof(object->rank), sizeof(object->rank), object->rank );
+   printf("%*.*s", sizeof(object->fpi), sizeof(object->fpi), object->fpi );
+   printf("%*.*s", sizeof(object->govlev), sizeof(object->govlev), object->govlev );
+   printf("%*.*s", sizeof(object->rectyp), sizeof(object->rectyp), object->rectyp );
+   printf("%*.*s", sizeof(object->list), sizeof(object->list), object->list );
+   printf("%*.*s", sizeof(object->wpdc), sizeof(object->wpdc), object->wpdc );
+   printf("%*.*s", sizeof(object->reprint), sizeof(object->reprint), object->reprint );
+   printf("%*.*s", sizeof(object->telno), sizeof(object->telno), object->telno );
+   printf("%*.*s", sizeof(object->rspos), sizeof(object->rspos), object->rspos );
+   printf("%*.*s", sizeof(object->nstel), sizeof(object->nstel), object->nstel );
+   printf("%*.*s", sizeof(object->srvof), sizeof(object->srvof), object->srvof );
+   printf("%*.*s", sizeof(object->srvno), sizeof(object->srvno), object->srvno );
+   printf("%*.*s", sizeof(object->srvdt), sizeof(object->srvdt), object->srvdt );
+   printf("%*.*s", sizeof(object->nmsur), sizeof(object->nmsur), object->nmsur );
+   printf("%*.*s", sizeof(object->nmsub), sizeof(object->nmsub), object->nmsub );
+   printf("%*.*s", sizeof(object->title), sizeof(object->title), object->title );
+   printf("%*.*s", sizeof(object->lineage), sizeof(object->lineage), object->lineage );
+   printf("%*.*s", sizeof(object->honor), sizeof(object->honor), object->honor );
+   printf("%*.*s", sizeof(object->busdsc), sizeof(object->busdsc), object->busdsc );
+   printf("%*.*s", sizeof(object->house), sizeof(object->house), object->house );
+   printf("%*.*s", sizeof(object->bldno), sizeof(object->bldno), object->bldno );
+   printf("%*.*s", sizeof(object->bldpre), sizeof(object->bldpre), object->bldpre );
+   printf("%*.*s", sizeof(object->bldpost), sizeof(object->bldpost), object->bldpost );
+   printf("%*.*s", sizeof(object->str), sizeof(object->str), object->str );
+   printf("%*.*s", sizeof(object->strpre), sizeof(object->strpre), object->strpre );
+   printf("%*.*s", sizeof(object->strtyp), sizeof(object->strtyp), object->strtyp );
+   printf("%*.*s", sizeof(object->strpost), sizeof(object->strpost), object->strpost );
+   printf("%*.*s", sizeof(object->fullcom), sizeof(object->fullcom), object->fullcom );
+   printf("%*.*s", sizeof(object->state), sizeof(object->state), object->state );
+   printf("%*.*s", sizeof(object->zip), sizeof(object->zip), object->zip );
+   printf("%*.*s", sizeof(object->fft), sizeof(object->fft), object->fft );
+   printf("%*.*s", sizeof(object->county), sizeof(object->county), object->county );
+   printf("%*.*s", sizeof(object->effst), sizeof(object->effst), object->effst );
+   printf("%*.*s", sizeof(object->ifn), sizeof(object->ifn), object->ifn );
+   printf("%*.*s", sizeof(object->notyp), sizeof(object->notyp), object->notyp );
+   printf("%*.*s", sizeof(object->status), sizeof(object->status), object->status );
+   printf("%*.*s", sizeof(object->origin), sizeof(object->origin), object->origin );
+   printf("%*.*s", sizeof(object->priority), sizeof(object->priority), object->priority );
+   printf("%*.*s", sizeof(object->lstmod), sizeof(object->lstmod), object->lstmod );
+   printf("%*.*s", sizeof(object->setmod), sizeof(object->setmod), object->setmod );
+   printf("%*.*s", sizeof(object->senddt), sizeof(object->senddt), object->senddt );
+   printf("%g", object->set_id );
+   printf("%g", object->mem_id );
+   printf("%g", object->child_id );
+   printf("%g", object->par_id );
+   printf("%*.*s", sizeof(object->modified), sizeof(object->modified), object->modified );
+   printf("%g", object->processed );
+   printf("%*.*s", sizeof(object->op_id), sizeof(object->op_id), object->op_id );
+   printf("%g", object->rank1_parent );
+   printf("%g", object->rank2_parent );
+   printf("%g", object->rank3_parent );
+   printf("%g", object->rank4_parent );
+   printf("%g", object->rank5_parent );
+   printf("%g", object->rank6_parent );
+   printf("%g", object->rank7_parent );
+   printf("%g", object->rank8_parent );
+   printf("%*.*s", sizeof(object->index_name), sizeof(object->index_name), object->index_name );
+   printf("%*.*s", sizeof(object->index_str), sizeof(object->index_str), object->index_str );
+   printf("%*.*s", sizeof(object->tcid), sizeof(object->tcid), object->tcid );
+   printf("%*.*s", sizeof(object->class), sizeof(object->class), object->class );
+   printf("%*.*s", sizeof(object->special), sizeof(object->special), object->special );
+   printf("%*.*s", sizeof(object->cna), sizeof(object->cna), object->cna );
+   printf("%*.*s", sizeof(object->nts), sizeof(object->nts), object->nts );
+   printf("%*.*s", sizeof(object->abrcom), sizeof(object->abrcom), object->abrcom );
+
+   return(returnCode);
+}
+
+   /*
+    * Insertor for objects of type t_slulisting
+    */
+
+t_GrogReturnCode t_slulisting_insert( object )
+t_slulisting *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_NULL;
+
+   EXEC SQL BEGIN DECLARE SECTION;
+      varchar lstyle[2];
+      varchar lrank[2];
+      varchar lfpi[2];
+      varchar lgovlev[3];
+      varchar lrectyp[2];
+      varchar llist[3];
+      varchar lwpdc[5];
+      varchar lreprint[5];
+      varchar ltelno[11];
+      varchar lrspos[5];
+      varchar lnstel[51];
+      varchar lsrvof[5];
+      varchar lsrvno[13];
+      varchar lsrvdt[30];
+      varchar lnmsur[256];
+      varchar lnmsub[256];
+      varchar ltitle[256];
+      varchar llineage[256];
+      varchar lhonor[256];
+      varchar lbusdsc[256];
+      varchar lhouse[256];
+      varchar lbldno[256];
+      varchar lbldpre[256];
+      varchar lbldpost[256];
+      varchar lstr[256];
+      varchar lstrpre[256];
+      varchar lstrtyp[256];
+      varchar lstrpost[256];
+      varchar lfullcom[256];
+      varchar lstate[256];
+      varchar lzip[11];
+      varchar lfft[256];
+      varchar lcounty[256];
+      varchar leffst[3];
+      varchar lifn[2];
+      varchar lnotyp[3];
+      varchar lstatus[2];
+      varchar lorigin[2];
+      varchar lpriority[2];
+      varchar llstmod[30];
+      varchar lsetmod[30];
+      varchar lsenddt[30];
+      double lset_id;
+      double lmem_id;
+      double lchild_id;
+      double lpar_id;
+      varchar lmodified[3];
+      double lprocessed;
+      varchar lop_id[21];
+      double lrank1_parent;
+      double lrank2_parent;
+      double lrank3_parent;
+      double lrank4_parent;
+      double lrank5_parent;
+      double lrank6_parent;
+      double lrank7_parent;
+      double lrank8_parent;
+      varchar lindex_name[62];
+      varchar lindex_str[31];
+      varchar ltcid[2];
+      varchar lclass[4];
+      varchar lspecial[31];
+      varchar lcna[2];
+      varchar lnts[2];
+      varchar labrcom[256];
+   EXEC SQL END DECLARE SECTION;
+
+   returnCode = object->is_valid( object );
+
+   if ( returnCode == GROG_SUCCESS )
+   {
+   strcpy(lstyle.arr, object->style);
+   strcpy(lrank.arr, object->rank);
+   strcpy(lfpi.arr, object->fpi);
+   strcpy(lgovlev.arr, object->govlev);
+   strcpy(lrectyp.arr, object->rectyp);
+   strcpy(llist.arr, object->list);
+   strcpy(lwpdc.arr, object->wpdc);
+   strcpy(lreprint.arr, object->reprint);
+   strcpy(ltelno.arr, object->telno);
+   strcpy(lrspos.arr, object->rspos);
+   strcpy(lnstel.arr, object->nstel);
+   strcpy(lsrvof.arr, object->srvof);
+   strcpy(lsrvno.arr, object->srvno);
+   strcpy(lsrvdt.arr, object->srvdt);
+   strcpy(lnmsur.arr, object->nmsur);
+   strcpy(lnmsub.arr, object->nmsub);
+   strcpy(ltitle.arr, object->title);
+   strcpy(llineage.arr, object->lineage);
+   strcpy(lhonor.arr, object->honor);
+   strcpy(lbusdsc.arr, object->busdsc);
+   strcpy(lhouse.arr, object->house);
+   strcpy(lbldno.arr, object->bldno);
+   strcpy(lbldpre.arr, object->bldpre);
+   strcpy(lbldpost.arr, object->bldpost);
+   strcpy(lstr.arr, object->str);
+   strcpy(lstrpre.arr, object->strpre);
+   strcpy(lstrtyp.arr, object->strtyp);
+   strcpy(lstrpost.arr, object->strpost);
+   strcpy(lfullcom.arr, object->fullcom);
+   strcpy(lstate.arr, object->state);
+   strcpy(lzip.arr, object->zip);
+   strcpy(lfft.arr, object->fft);
+   strcpy(lcounty.arr, object->county);
+   strcpy(leffst.arr, object->effst);
+   strcpy(lifn.arr, object->ifn);
+   strcpy(lnotyp.arr, object->notyp);
+   strcpy(lstatus.arr, object->status);
+   strcpy(lorigin.arr, object->origin);
+   strcpy(lpriority.arr, object->priority);
+   strcpy(llstmod.arr, object->lstmod);
+   strcpy(lsetmod.arr, object->setmod);
+   strcpy(lsenddt.arr, object->senddt);
+   lset_id=object->set_id;
+   lmem_id=object->mem_id;
+   lchild_id=object->child_id;
+   lpar_id=object->par_id;
+   strcpy(lmodified.arr, object->modified);
+   lprocessed=object->processed;
+   strcpy(lop_id.arr, object->op_id);
+   lrank1_parent=object->rank1_parent;
+   lrank2_parent=object->rank2_parent;
+   lrank3_parent=object->rank3_parent;
+   lrank4_parent=object->rank4_parent;
+   lrank5_parent=object->rank5_parent;
+   lrank6_parent=object->rank6_parent;
+   lrank7_parent=object->rank7_parent;
+   lrank8_parent=object->rank8_parent;
+   strcpy(lindex_name.arr, object->index_name);
+   strcpy(lindex_str.arr, object->index_str);
+   strcpy(ltcid.arr, object->tcid);
+   strcpy(lclass.arr, object->class);
+   strcpy(lspecial.arr, object->special);
+   strcpy(lcna.arr, object->cna);
+   strcpy(lnts.arr, object->nts);
+   strcpy(labrcom.arr, object->abrcom);
+
+      EXEC SQL INSERT INTO slulisting
+      (
+          style
+         ,  rank
+         ,  fpi
+         ,  govlev
+         ,  rectyp
+         ,  list
+         ,  wpdc
+         ,  reprint
+         ,  telno
+         ,  rspos
+         ,  nstel
+         ,  srvof
+         ,  srvno
+         ,  srvdt
+         ,  nmsur
+         ,  nmsub
+         ,  title
+         ,  lineage
+         ,  honor
+         ,  busdsc
+         ,  house
+         ,  bldno
+         ,  bldpre
+         ,  bldpost
+         ,  str
+         ,  strpre
+         ,  strtyp
+         ,  strpost
+         ,  fullcom
+         ,  state
+         ,  zip
+         ,  fft
+         ,  county
+         ,  effst
+         ,  ifn
+         ,  notyp
+         ,  status
+         ,  origin
+         ,  priority
+         ,  lstmod
+         ,  setmod
+         ,  senddt
+         ,  set_id
+         ,  mem_id
+         ,  child_id
+         ,  par_id
+         ,  modified
+         ,  processed
+         ,  op_id
+         ,  rank1_parent
+         ,  rank2_parent
+         ,  rank3_parent
+         ,  rank4_parent
+         ,  rank5_parent
+         ,  rank6_parent
+         ,  rank7_parent
+         ,  rank8_parent
+         ,  index_name
+         ,  index_str
+         ,  tcid
+         ,  class
+         ,  special
+         ,  cna
+         ,  nts
+         ,  abrcom
+
+
+      )
+      Values
+      (
+          :lstyle
+         ,  :lrank
+         ,  :lfpi
+         ,  :lgovlev
+         ,  :lrectyp
+         ,  :llist
+         ,  :lwpdc
+         ,  :lreprint
+         ,  :ltelno
+         ,  :lrspos
+         ,  :lnstel
+         ,  :lsrvof
+         ,  :lsrvno
+         ,  :lsrvdt
+         ,  :lnmsur
+         ,  :lnmsub
+         ,  :ltitle
+         ,  :llineage
+         ,  :lhonor
+         ,  :lbusdsc
+         ,  :lhouse
+         ,  :lbldno
+         ,  :lbldpre
+         ,  :lbldpost
+         ,  :lstr
+         ,  :lstrpre
+         ,  :lstrtyp
+         ,  :lstrpost
+         ,  :lfullcom
+         ,  :lstate
+         ,  :lzip
+         ,  :lfft
+         ,  :lcounty
+         ,  :leffst
+         ,  :lifn
+         ,  :lnotyp
+         ,  :lstatus
+         ,  :lorigin
+         ,  :lpriority
+         ,  :llstmod
+         ,  :lsetmod
+         ,  :lsenddt
+         ,  :lset_id
+         ,  :lmem_id
+         ,  :lchild_id
+         ,  :lpar_id
+         ,  :lmodified
+         ,  :lprocessed
+         ,  :lop_id
+         ,  :lrank1_parent
+         ,  :lrank2_parent
+         ,  :lrank3_parent
+         ,  :lrank4_parent
+         ,  :lrank5_parent
+         ,  :lrank6_parent
+         ,  :lrank7_parent
+         ,  :lrank8_parent
+         ,  :lindex_name
+         ,  :lindex_str
+         ,  :ltcid
+         ,  :lclass
+         ,  :lspecial
+         ,  :lcna
+         ,  :lnts
+         ,  :labrcom
+
+
+      );
+
+			returnCode =  (sqlca.sqlerrd[2] == 1) ? GROG_SUCCESS : GROG_FAILURE;
+   }
+
+   return(returnCode);
+}
+
+   /*
+    * Deletor for objects of type t_slulisting
+    */
+
+t_GrogReturnCode t_slulisting_delete( object )
+t_slulisting *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_NULL;
+
+   EXEC SQL BEGIN DECLARE SECTION;
+      varchar lstyle[2];
+      varchar lrank[2];
+      varchar lfpi[2];
+      varchar lgovlev[3];
+      varchar lrectyp[2];
+      varchar llist[3];
+      varchar lwpdc[5];
+      varchar lreprint[5];
+      varchar ltelno[11];
+      varchar lrspos[5];
+      varchar lnstel[51];
+      varchar lsrvof[5];
+      varchar lsrvno[13];
+      varchar lsrvdt[30];
+      varchar lnmsur[256];
+      varchar lnmsub[256];
+      varchar ltitle[256];
+      varchar llineage[256];
+      varchar lhonor[256];
+      varchar lbusdsc[256];
+      varchar lhouse[256];
+      varchar lbldno[256];
+      varchar lbldpre[256];
+      varchar lbldpost[256];
+      varchar lstr[256];
+      varchar lstrpre[256];
+      varchar lstrtyp[256];
+      varchar lstrpost[256];
+      varchar lfullcom[256];
+      varchar lstate[256];
+      varchar lzip[11];
+      varchar lfft[256];
+      varchar lcounty[256];
+      varchar leffst[3];
+      varchar lifn[2];
+      varchar lnotyp[3];
+      varchar lstatus[2];
+      varchar lorigin[2];
+      varchar lpriority[2];
+      varchar llstmod[30];
+      varchar lsetmod[30];
+      varchar lsenddt[30];
+      double lset_id;
+      double lmem_id;
+      double lchild_id;
+      double lpar_id;
+      varchar lmodified[3];
+      double lprocessed;
+      varchar lop_id[21];
+      double lrank1_parent;
+      double lrank2_parent;
+      double lrank3_parent;
+      double lrank4_parent;
+      double lrank5_parent;
+      double lrank6_parent;
+      double lrank7_parent;
+      double lrank8_parent;
+      varchar lindex_name[62];
+      varchar lindex_str[31];
+      varchar ltcid[2];
+      varchar lclass[4];
+      varchar lspecial[31];
+      varchar lcna[2];
+      varchar lnts[2];
+      varchar labrcom[256];
+   EXEC SQL END DECLARE SECTION;
+
+   strcpy(lstyle.arr, object->style);
+   strcpy(lrank.arr, object->rank);
+   strcpy(lfpi.arr, object->fpi);
+   strcpy(lgovlev.arr, object->govlev);
+   strcpy(lrectyp.arr, object->rectyp);
+   strcpy(llist.arr, object->list);
+   strcpy(lwpdc.arr, object->wpdc);
+   strcpy(lreprint.arr, object->reprint);
+   strcpy(ltelno.arr, object->telno);
+   strcpy(lrspos.arr, object->rspos);
+   strcpy(lnstel.arr, object->nstel);
+   strcpy(lsrvof.arr, object->srvof);
+   strcpy(lsrvno.arr, object->srvno);
+   strcpy(lsrvdt.arr, object->srvdt);
+   strcpy(lnmsur.arr, object->nmsur);
+   strcpy(lnmsub.arr, object->nmsub);
+   strcpy(ltitle.arr, object->title);
+   strcpy(llineage.arr, object->lineage);
+   strcpy(lhonor.arr, object->honor);
+   strcpy(lbusdsc.arr, object->busdsc);
+   strcpy(lhouse.arr, object->house);
+   strcpy(lbldno.arr, object->bldno);
+   strcpy(lbldpre.arr, object->bldpre);
+   strcpy(lbldpost.arr, object->bldpost);
+   strcpy(lstr.arr, object->str);
+   strcpy(lstrpre.arr, object->strpre);
+   strcpy(lstrtyp.arr, object->strtyp);
+   strcpy(lstrpost.arr, object->strpost);
+   strcpy(lfullcom.arr, object->fullcom);
+   strcpy(lstate.arr, object->state);
+   strcpy(lzip.arr, object->zip);
+   strcpy(lfft.arr, object->fft);
+   strcpy(lcounty.arr, object->county);
+   strcpy(leffst.arr, object->effst);
+   strcpy(lifn.arr, object->ifn);
+   strcpy(lnotyp.arr, object->notyp);
+   strcpy(lstatus.arr, object->status);
+   strcpy(lorigin.arr, object->origin);
+   strcpy(lpriority.arr, object->priority);
+   strcpy(llstmod.arr, object->lstmod);
+   strcpy(lsetmod.arr, object->setmod);
+   strcpy(lsenddt.arr, object->senddt);
+   lset_id=object->set_id;
+   lmem_id=object->mem_id;
+   lchild_id=object->child_id;
+   lpar_id=object->par_id;
+   strcpy(lmodified.arr, object->modified);
+   lprocessed=object->processed;
+   strcpy(lop_id.arr, object->op_id);
+   lrank1_parent=object->rank1_parent;
+   lrank2_parent=object->rank2_parent;
+   lrank3_parent=object->rank3_parent;
+   lrank4_parent=object->rank4_parent;
+   lrank5_parent=object->rank5_parent;
+   lrank6_parent=object->rank6_parent;
+   lrank7_parent=object->rank7_parent;
+   lrank8_parent=object->rank8_parent;
+   strcpy(lindex_name.arr, object->index_name);
+   strcpy(lindex_str.arr, object->index_str);
+   strcpy(ltcid.arr, object->tcid);
+   strcpy(lclass.arr, object->class);
+   strcpy(lspecial.arr, object->special);
+   strcpy(lcna.arr, object->cna);
+   strcpy(lnts.arr, object->nts);
+   strcpy(labrcom.arr, object->abrcom);
+
+   EXEC SQL DELETE FROM slulisting
+   WHERE(
+         ( style = :lstyle or ( :lstyle Is Null And style Is Null ) )
+          And ( rank = :lrank or ( :lrank Is Null And rank Is Null ) )
+          And ( fpi = :lfpi or ( :lfpi Is Null And fpi Is Null ) )
+          And ( govlev = :lgovlev or ( :lgovlev Is Null And govlev Is Null ) )
+          And ( rectyp = :lrectyp or ( :lrectyp Is Null And rectyp Is Null ) )
+          And ( list = :llist or ( :llist Is Null And list Is Null ) )
+          And ( wpdc = :lwpdc or ( :lwpdc Is Null And wpdc Is Null ) )
+          And ( reprint = :lreprint or ( :lreprint Is Null And reprint Is Null ) )
+          And ( telno = :ltelno or ( :ltelno Is Null And telno Is Null ) )
+          And ( rspos = :lrspos or ( :lrspos Is Null And rspos Is Null ) )
+          And ( nstel = :lnstel or ( :lnstel Is Null And nstel Is Null ) )
+          And ( srvof = :lsrvof or ( :lsrvof Is Null And srvof Is Null ) )
+          And ( srvno = :lsrvno or ( :lsrvno Is Null And srvno Is Null ) )
+          And ( srvdt = :lsrvdt or ( :lsrvdt Is Null And srvdt Is Null ) )
+          And ( nmsur = :lnmsur or ( :lnmsur Is Null And nmsur Is Null ) )
+          And ( nmsub = :lnmsub or ( :lnmsub Is Null And nmsub Is Null ) )
+          And ( title = :ltitle or ( :ltitle Is Null And title Is Null ) )
+          And ( lineage = :llineage or ( :llineage Is Null And lineage Is Null ) )
+          And ( honor = :lhonor or ( :lhonor Is Null And honor Is Null ) )
+          And ( busdsc = :lbusdsc or ( :lbusdsc Is Null And busdsc Is Null ) )
+          And ( house = :lhouse or ( :lhouse Is Null And house Is Null ) )
+          And ( bldno = :lbldno or ( :lbldno Is Null And bldno Is Null ) )
+          And ( bldpre = :lbldpre or ( :lbldpre Is Null And bldpre Is Null ) )
+          And ( bldpost = :lbldpost or ( :lbldpost Is Null And bldpost Is Null ) )
+          And ( str = :lstr or ( :lstr Is Null And str Is Null ) )
+          And ( strpre = :lstrpre or ( :lstrpre Is Null And strpre Is Null ) )
+          And ( strtyp = :lstrtyp or ( :lstrtyp Is Null And strtyp Is Null ) )
+          And ( strpost = :lstrpost or ( :lstrpost Is Null And strpost Is Null ) )
+          And ( fullcom = :lfullcom or ( :lfullcom Is Null And fullcom Is Null ) )
+          And ( state = :lstate or ( :lstate Is Null And state Is Null ) )
+          And ( zip = :lzip or ( :lzip Is Null And zip Is Null ) )
+          And ( fft = :lfft or ( :lfft Is Null And fft Is Null ) )
+          And ( county = :lcounty or ( :lcounty Is Null And county Is Null ) )
+          And ( effst = :leffst or ( :leffst Is Null And effst Is Null ) )
+          And ( ifn = :lifn or ( :lifn Is Null And ifn Is Null ) )
+          And ( notyp = :lnotyp or ( :lnotyp Is Null And notyp Is Null ) )
+          And ( status = :lstatus or ( :lstatus Is Null And status Is Null ) )
+          And ( origin = :lorigin or ( :lorigin Is Null And origin Is Null ) )
+          And ( priority = :lpriority or ( :lpriority Is Null And priority Is Null ) )
+          And ( lstmod = :llstmod or ( :llstmod Is Null And lstmod Is Null ) )
+          And ( setmod = :lsetmod or ( :lsetmod Is Null And setmod Is Null ) )
+          And ( senddt = :lsenddt or ( :lsenddt Is Null And senddt Is Null ) )
+          And ( set_id = :lset_id or ( :lset_id Is Null And set_id Is Null ) )
+          And ( mem_id = :lmem_id or ( :lmem_id Is Null And mem_id Is Null ) )
+          And ( child_id = :lchild_id or ( :lchild_id Is Null And child_id Is Null ) )
+          And ( par_id = :lpar_id or ( :lpar_id Is Null And par_id Is Null ) )
+          And ( modified = :lmodified or ( :lmodified Is Null And modified Is Null ) )
+          And ( processed = :lprocessed or ( :lprocessed Is Null And processed Is Null ) )
+          And ( op_id = :lop_id or ( :lop_id Is Null And op_id Is Null ) )
+          And ( rank1_parent = :lrank1_parent or ( :lrank1_parent Is Null And rank1_parent Is Null ) )
+          And ( rank2_parent = :lrank2_parent or ( :lrank2_parent Is Null And rank2_parent Is Null ) )
+          And ( rank3_parent = :lrank3_parent or ( :lrank3_parent Is Null And rank3_parent Is Null ) )
+          And ( rank4_parent = :lrank4_parent or ( :lrank4_parent Is Null And rank4_parent Is Null ) )
+          And ( rank5_parent = :lrank5_parent or ( :lrank5_parent Is Null And rank5_parent Is Null ) )
+          And ( rank6_parent = :lrank6_parent or ( :lrank6_parent Is Null And rank6_parent Is Null ) )
+          And ( rank7_parent = :lrank7_parent or ( :lrank7_parent Is Null And rank7_parent Is Null ) )
+          And ( rank8_parent = :lrank8_parent or ( :lrank8_parent Is Null And rank8_parent Is Null ) )
+          And ( index_name = :lindex_name or ( :lindex_name Is Null And index_name Is Null ) )
+          And ( index_str = :lindex_str or ( :lindex_str Is Null And index_str Is Null ) )
+          And ( tcid = :ltcid or ( :ltcid Is Null And tcid Is Null ) )
+          And ( class = :lclass or ( :lclass Is Null And class Is Null ) )
+          And ( special = :lspecial or ( :lspecial Is Null And special Is Null ) )
+          And ( cna = :lcna or ( :lcna Is Null And cna Is Null ) )
+          And ( nts = :lnts or ( :lnts Is Null And nts Is Null ) )
+          And ( abrcom = :labrcom or ( :labrcom Is Null And abrcom Is Null ) )
+   );
+
+	returnCode =  (sqlca.sqlerrd[2] == 1) ? GROG_SUCCESS : GROG_FAILURE;
+
+   return(returnCode);
+}
+
+   /*
+    * Destructor for objects of type t_slulisting
+    */
+
+void t_slulisting_destruct( object )
+t_slulisting *object;
+{
+   free( object->self );
+   return;
+}
+
+   /*
+    * Constructor for objects of type t_slulisting
+    */
+
+t_slulisting *t_slulisting_construct()
+{
+   t_slulisting *buf=(t_slulisting*)malloc(sizeof(t_slulisting));
+   buf->self = buf;
+
+   { extern t_slulisting *t_slulisting_construct(); 
+     buf->construct=t_slulisting_construct; }
+
+   { extern void slulisting_destruct(); 
+     buf->destruct=t_slulisting_destruct; }
+
+   { extern void slulisting_insert(); 
+     buf->insert=t_slulisting_insert; }
+
+   { extern void slulisting_delete(); 
+     buf->delete=t_slulisting_delete; }
+
+   { extern void slulisting_is_valid(); 
+     buf->is_valid=t_slulisting_is_valid; }
+
+   { extern void slulisting_print(); 
+     buf->print=t_slulisting_print; }
+
+
+   { buf->style_is_valid=t_slulisting_style_is_valid; }
+
+   { buf->rank_is_valid=t_slulisting_rank_is_valid; }
+
+   { buf->fpi_is_valid=t_slulisting_fpi_is_valid; }
+
+   { buf->govlev_is_valid=t_slulisting_govlev_is_valid; }
+
+   { buf->rectyp_is_valid=t_slulisting_rectyp_is_valid; }
+
+   { buf->list_is_valid=t_slulisting_list_is_valid; }
+
+   { buf->wpdc_is_valid=t_slulisting_wpdc_is_valid; }
+
+   { buf->reprint_is_valid=t_slulisting_reprint_is_valid; }
+
+   { buf->telno_is_valid=t_slulisting_telno_is_valid; }
+
+   { buf->rspos_is_valid=t_slulisting_rspos_is_valid; }
+
+   { buf->nstel_is_valid=t_slulisting_nstel_is_valid; }
+
+   { buf->srvof_is_valid=t_slulisting_srvof_is_valid; }
+
+   { buf->srvno_is_valid=t_slulisting_srvno_is_valid; }
+
+   { buf->srvdt_is_valid=t_slulisting_srvdt_is_valid; }
+
+   { buf->nmsur_is_valid=t_slulisting_nmsur_is_valid; }
+
+   { buf->nmsub_is_valid=t_slulisting_nmsub_is_valid; }
+
+   { buf->title_is_valid=t_slulisting_title_is_valid; }
+
+   { buf->lineage_is_valid=t_slulisting_lineage_is_valid; }
+
+   { buf->honor_is_valid=t_slulisting_honor_is_valid; }
+
+   { buf->busdsc_is_valid=t_slulisting_busdsc_is_valid; }
+
+   { buf->house_is_valid=t_slulisting_house_is_valid; }
+
+   { buf->bldno_is_valid=t_slulisting_bldno_is_valid; }
+
+   { buf->bldpre_is_valid=t_slulisting_bldpre_is_valid; }
+
+   { buf->bldpost_is_valid=t_slulisting_bldpost_is_valid; }
+
+   { buf->str_is_valid=t_slulisting_str_is_valid; }
+
+   { buf->strpre_is_valid=t_slulisting_strpre_is_valid; }
+
+   { buf->strtyp_is_valid=t_slulisting_strtyp_is_valid; }
+
+   { buf->strpost_is_valid=t_slulisting_strpost_is_valid; }
+
+   { buf->fullcom_is_valid=t_slulisting_fullcom_is_valid; }
+
+   { buf->state_is_valid=t_slulisting_state_is_valid; }
+
+   { buf->zip_is_valid=t_slulisting_zip_is_valid; }
+
+   { buf->fft_is_valid=t_slulisting_fft_is_valid; }
+
+   { buf->county_is_valid=t_slulisting_county_is_valid; }
+
+   { buf->effst_is_valid=t_slulisting_effst_is_valid; }
+
+   { buf->ifn_is_valid=t_slulisting_ifn_is_valid; }
+
+   { buf->notyp_is_valid=t_slulisting_notyp_is_valid; }
+
+   { buf->status_is_valid=t_slulisting_status_is_valid; }
+
+   { buf->origin_is_valid=t_slulisting_origin_is_valid; }
+
+   { buf->priority_is_valid=t_slulisting_priority_is_valid; }
+
+   { buf->lstmod_is_valid=t_slulisting_lstmod_is_valid; }
+
+   { buf->setmod_is_valid=t_slulisting_setmod_is_valid; }
+
+   { buf->senddt_is_valid=t_slulisting_senddt_is_valid; }
+
+   { buf->set_id_is_valid=t_slulisting_set_id_is_valid; }
+
+   { buf->mem_id_is_valid=t_slulisting_mem_id_is_valid; }
+
+   { buf->child_id_is_valid=t_slulisting_child_id_is_valid; }
+
+   { buf->par_id_is_valid=t_slulisting_par_id_is_valid; }
+
+   { buf->modified_is_valid=t_slulisting_modified_is_valid; }
+
+   { buf->processed_is_valid=t_slulisting_processed_is_valid; }
+
+   { buf->op_id_is_valid=t_slulisting_op_id_is_valid; }
+
+   { buf->rank1_parent_is_valid=t_slulisting_rank1_parent_is_valid; }
+
+   { buf->rank2_parent_is_valid=t_slulisting_rank2_parent_is_valid; }
+
+   { buf->rank3_parent_is_valid=t_slulisting_rank3_parent_is_valid; }
+
+   { buf->rank4_parent_is_valid=t_slulisting_rank4_parent_is_valid; }
+
+   { buf->rank5_parent_is_valid=t_slulisting_rank5_parent_is_valid; }
+
+   { buf->rank6_parent_is_valid=t_slulisting_rank6_parent_is_valid; }
+
+   { buf->rank7_parent_is_valid=t_slulisting_rank7_parent_is_valid; }
+
+   { buf->rank8_parent_is_valid=t_slulisting_rank8_parent_is_valid; }
+
+   { buf->index_name_is_valid=t_slulisting_index_name_is_valid; }
+
+   { buf->index_str_is_valid=t_slulisting_index_str_is_valid; }
+
+   { buf->tcid_is_valid=t_slulisting_tcid_is_valid; }
+
+   { buf->class_is_valid=t_slulisting_class_is_valid; }
+
+   { buf->special_is_valid=t_slulisting_special_is_valid; }
+
+   { buf->cna_is_valid=t_slulisting_cna_is_valid; }
+
+   { buf->nts_is_valid=t_slulisting_nts_is_valid; }
+
+   { buf->abrcom_is_valid=t_slulisting_abrcom_is_valid; }
+
+
+   { extern t_GrogReturnCode t_slulisting_set_from_listing();
+     buf->set_from_listing = t_slulisting_set_from_listing; }
+
+   return(buf->self);
+}
+
+
+   /*
+    * Method: set_from_listing() returning t_GrogReturnCode
+    */
+
+static t_GrogReturnCode t_slulisting_set_from_listing( self )
+t_slulisting *self;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_NULL;
+
+   return( returnCode );
+}
+   /*
+    * Meta-object used for construction (and optionally for destruction)
+    */
+
+t_slulisting slulisting = {
+   
+/* style */ "",
+   /* rank */ "",
+   /* fpi */ "",
+   /* govlev */ "",
+   /* rectyp */ "",
+   /* list */ "",
+   /* wpdc */ "",
+   /* reprint */ "",
+   /* telno */ "",
+   /* rspos */ "",
+   /* nstel */ "",
+   /* srvof */ "",
+   /* srvno */ "",
+   /* srvdt */ "",
+   /* nmsur */ "",
+   /* nmsub */ "",
+   /* title */ "",
+   /* lineage */ "",
+   /* honor */ "",
+   /* busdsc */ "",
+   /* house */ "",
+   /* bldno */ "",
+   /* bldpre */ "",
+   /* bldpost */ "",
+   /* str */ "",
+   /* strpre */ "",
+   /* strtyp */ "",
+   /* strpost */ "",
+   /* fullcom */ "",
+   /* state */ "",
+   /* zip */ "",
+   /* fft */ "",
+   /* county */ "",
+   /* effst */ "",
+   /* ifn */ "",
+   /* notyp */ "",
+   /* status */ "",
+   /* origin */ "",
+   /* priority */ "",
+   /* lstmod */ "",
+   /* setmod */ "",
+   /* senddt */ "",
+   /* set_id */ (double) 0.0,
+   /* mem_id */ (double) 0.0,
+   /* child_id */ (double) 0.0,
+   /* par_id */ (double) 0.0,
+   /* modified */ "",
+   /* processed */ (double) 0.0,
+   /* op_id */ "",
+   /* rank1_parent */ (double) 0.0,
+   /* rank2_parent */ (double) 0.0,
+   /* rank3_parent */ (double) 0.0,
+   /* rank4_parent */ (double) 0.0,
+   /* rank5_parent */ (double) 0.0,
+   /* rank6_parent */ (double) 0.0,
+   /* rank7_parent */ (double) 0.0,
+   /* rank8_parent */ (double) 0.0,
+   /* index_name */ "",
+   /* index_str */ "",
+   /* tcid */ "",
+   /* class */ "",
+   /* special */ "",
+   /* cna */ "",
+   /* nts */ "",
+   /* abrcom */ "",
+   
+   /* self */ (t_slulisting *) &slulisting ,
+   
+
+   t_slulisting_style_is_valid, 
+   t_slulisting_rank_is_valid, 
+   t_slulisting_fpi_is_valid, 
+   t_slulisting_govlev_is_valid, 
+   t_slulisting_rectyp_is_valid, 
+   t_slulisting_list_is_valid, 
+   t_slulisting_wpdc_is_valid, 
+   t_slulisting_reprint_is_valid, 
+   t_slulisting_telno_is_valid, 
+   t_slulisting_rspos_is_valid, 
+   t_slulisting_nstel_is_valid, 
+   t_slulisting_srvof_is_valid, 
+   t_slulisting_srvno_is_valid, 
+   t_slulisting_srvdt_is_valid, 
+   t_slulisting_nmsur_is_valid, 
+   t_slulisting_nmsub_is_valid, 
+   t_slulisting_title_is_valid, 
+   t_slulisting_lineage_is_valid, 
+   t_slulisting_honor_is_valid, 
+   t_slulisting_busdsc_is_valid, 
+   t_slulisting_house_is_valid, 
+   t_slulisting_bldno_is_valid, 
+   t_slulisting_bldpre_is_valid, 
+   t_slulisting_bldpost_is_valid, 
+   t_slulisting_str_is_valid, 
+   t_slulisting_strpre_is_valid, 
+   t_slulisting_strtyp_is_valid, 
+   t_slulisting_strpost_is_valid, 
+   t_slulisting_fullcom_is_valid, 
+   t_slulisting_state_is_valid, 
+   t_slulisting_zip_is_valid, 
+   t_slulisting_fft_is_valid, 
+   t_slulisting_county_is_valid, 
+   t_slulisting_effst_is_valid, 
+   t_slulisting_ifn_is_valid, 
+   t_slulisting_notyp_is_valid, 
+   t_slulisting_status_is_valid, 
+   t_slulisting_origin_is_valid, 
+   t_slulisting_priority_is_valid, 
+   t_slulisting_lstmod_is_valid, 
+   t_slulisting_setmod_is_valid, 
+   t_slulisting_senddt_is_valid, 
+   t_slulisting_set_id_is_valid, 
+   t_slulisting_mem_id_is_valid, 
+   t_slulisting_child_id_is_valid, 
+   t_slulisting_par_id_is_valid, 
+   t_slulisting_modified_is_valid, 
+   t_slulisting_processed_is_valid, 
+   t_slulisting_op_id_is_valid, 
+   t_slulisting_rank1_parent_is_valid, 
+   t_slulisting_rank2_parent_is_valid, 
+   t_slulisting_rank3_parent_is_valid, 
+   t_slulisting_rank4_parent_is_valid, 
+   t_slulisting_rank5_parent_is_valid, 
+   t_slulisting_rank6_parent_is_valid, 
+   t_slulisting_rank7_parent_is_valid, 
+   t_slulisting_rank8_parent_is_valid, 
+   t_slulisting_index_name_is_valid, 
+   t_slulisting_index_str_is_valid, 
+   t_slulisting_tcid_is_valid, 
+   t_slulisting_class_is_valid, 
+   t_slulisting_special_is_valid, 
+   t_slulisting_cna_is_valid, 
+   t_slulisting_nts_is_valid, 
+   t_slulisting_abrcom_is_valid, 
+
+   /* construct */ t_slulisting_construct,
+   /* destruct */ t_slulisting_destruct,
+   /* insert */ t_slulisting_insert,
+   /* delete */ t_slulisting_delete,
+    /* is_valid */ t_slulisting_is_valid,
+    /* print */ t_slulisting_print ,
+   /* set_from_listing */ t_slulisting_set_from_listing
+
+};
+
+

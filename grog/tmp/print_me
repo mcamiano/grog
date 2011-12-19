@@ -1,0 +1,12 @@
+   printf("%0.0s", ""); /* void object->ORA-01034: */
+   printf("%0.0s", ""); /* void object->smsgsg: */
+   printf("%0.0s", ""); /* void object-> */
+   printf("%0.0s", ""); /* void object->password: */
+   printf("%0.0s", ""); /* void object->ORA-01034: */
+   printf("%0.0s", ""); /* void object->smsgsg: */
+   printf("%0.0s", ""); /* void object-> */
+   printf("%0.0s", ""); /* void object->password: */
+   printf("%0.0s", ""); /* void object->ORA-01034: */
+   printf("%0.0s", ""); /* void object->smsgsg: */
+   printf("%0.0s", ""); /* void object-> */
+   printf("%0.0s", ""); /* void object->to */

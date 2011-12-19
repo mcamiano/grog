@@ -1,0 +1,256 @@
+NOpGen and GROG
+History
+Sun  6-13-1993, Sun 8-29-1993
+
+   When I began this database course, I had no idea it would stretch on this long, 
+let alone that I would have so little time to put towards it.  I began in the
+fall of 92, and was waylaid by a change in jobs as well as the birth of my
+son Craig.  I have also been spending more than my share of time on work
+related efforts, for which I hope to be compensated.  Nevertheless, it has
+had a severe impact on my ability to live up to my school related, and self
+imposed, obligations.  
+
+   For this last point I am regretful; the completion of this degree program
+means a lot to me personally both in terms of my own accomplishments as well
+as the hoped for effects it will have on my carreer.  At the same time, being 
+a member of the R.Buckminster Fuller Institute, I have an eye for keeping 
+things in perspective.  It may take longer to understand situations and 
+approaches as a comprehensive design scientist, but when you're done you 
+really have an excellent grasp of the whole picture.
+
+During the fall school year of 92-93, I implimented a lexer and parser for
+a text processing language I termed the Northside Operations Generator,
+or NOpGen.  NOpGen was implimented in about 1000 lines of commented AWK
+code (GNU gawk).  It is a language for defining and instantiating
+templates of text, and really stretched the capabilities of AWK to the
+maximum.  Rather than discuss the language again here, I will simply
+point out a few unique features.  First, it consists of only a few
+language constructs and keywords: COUPLING, BLOCK, and PASTE, which
+(with the NOpGen semantics) it is possible to describe and generate
+fully customizable source code, text documents, etc.  Second, unlike
+most macro and template languages, NOpGen explicitly recognizes the
+dependencies which exist between source code and entities external and
+internal to the system, such as database schemas, file systems, human
+programmers, hardware configuration settings, & etc.  
+
+   The text processing flow of the generator was modelled after the
+sequence of events during a typical database application coding session
+between a programmer and a text editor -  hence the use of the keyword
+PASTE.  In my own experience I quickly recognized that, especially with
+data strong applications, certain patterns emerged which repeated
+themselves over and over in the source code - hence the use of the
+keyword BLOCK (a block or template of text).  Lastly, as I had recently 
+been working in an X11 windowed environment, it struck me that one of the
+most frequent situations which arose was of having an editing session open
+in one window, while concurrently opening, reviewing, cutting from, and 
+closing windows into other areas of the system - especially to a database
+or a command line shell.  
+
+   What I and thousands of other programmers do - routinely,
+repetetively, and often with drudgery - is to act as a kind of plumber
+to reroute information flows from one portion of the system to another.
+The difference between us and plumbers is that they know how to accomplish
+the task once with pipes and fittings, while we seem to be content at doing
+it over and over again using the equivalent of buckets.  This is where the 
+use of the keyword COUPLING came from, as an analogue to a fitting between
+pipes.  All he thinking for this went on over the five years prior to the 
+first implimentation of NOpGen.  Quite a few years into this time, unbeknownst
+to myself, Microsoft Corp. released an application programming interface
+relying on a similar concept called Direct Data Embedding, or DDE, which 
+they have lately extended to Object Embedding and Linking.  IBM has also 
+implimented forms of this technology in its OS/2 operating system.  But I 
+have to this date yet to see anyone beside me apply the ideas to source 
+code creation and maintenance.   In a way it is quite sad, as it doesn't 
+say much for the state of the practice, but it is nice to know that "one
+lone, average human being" can be on the bleeding edge of the technology.
+
+   GROG, the name, started long ago in the mind of a child.  I thought it 
+would be an interesting name to use for a new software development tool,
+method, or technology.  It wasn't until the recent course in database 
+programming that I had a suitable candidate for the name.  So GROG doesn't
+really mean anything, but if you wanted it to, it could mean 
+'Generalized Object and Relational Generator' or something like that.
+This is my preferred meaning, and it accurately reflects the intentions 
+of the course project, which is to apply some fundamental object oriented
+techniques to an existing relational database sofware system.
+
+   The GROG implimentation was originally started as a package built 
+through NOpGen.  NOpGen blocks were written which provided textual templates
+for the creation of C structs, macros, functions, and anciliary state 
+variables.  Default shell scripts were written to mimic the way a database
+engine might respond to queries, to provide working stubs for NOpGen couplings.
+A relational table structure was worked out to provide a queriable repository 
+of class and method definitions, as well as declarations of 
+instance-connections, whole-part structures, and generalization-specialization
+structures.  The combination of couplings, blocks, and paste directives, 
+when run through NOpGen (with enough information for a meaningful coupling 
+context available) was intended to instantiate a source code library 
+of class and object definitions, with C macros used to provide a syntactically
+sweet way of referencing and manipulating the objects.
+
+   One major problem I ran into, which stalled me at a critical time (just 
+before my wife went into labor), was that C macros are not available to 
+externally compiled modules.  Furthermore, the macro language of the CPP 
+preprocessor is very, very simple, and I could not produce both a definition
+of a locally named object as well as a direct reference by name to that
+object, as you might in ordinary C or C++ code.  What I wanted was:
+   
+   type_customer   myCustomer;
+   type_customer   *customerArray[20];
+   customerArray[0] = &myCustomer;
+   myCustomer.print();
+   customerArray[0]->print();
+
+   This seems like it would be easy at first glance, since the syntax is 
+already supported by the C language for the 'struct' construct.  Why not 
+just use function pointers for the print() method?  It is not so simple,
+however, since if you use a 'typedef struct' for type_customer, the 
+print() element of the struct is uninitialized and therefore cannot be 
+referenced without programmatically tragic consequences ('segmentation fault
+- core dumped' is the most usual).  A more minor inconvienience is that 
+the '.' (dot) operator cannot be used for the print() member, since it 
+would have to be declared as a 'pointer-to-function' rather than a 'function'.
+
+   An even greater complication would arrize from attempting to use the C 
+macro preprocessor to assist in the declaration and initialization of 
+object types, since it is not possible to control the placement of such
+macros or debug errors caused by incorrect usage of them.  Furthermore, 
+the use of a seperate, special purpose preprocessor would require that
+all application code referencing the objects be precompiled by the GROG
+system.  Still another problem arises when one wants object declarations 
+to automatically initialize the object to a known consistent state - to 
+hold to invariants.  Most ESQL/C implimentations throw up code which makes
+perfectly legal ANSI C constructs such as
+
+   int i=0;
+   Product   **catalogue = Product.Locate( "Hammer", "Saw", "Knife" );
+   int j=1;
+   
+because most ESQL/C precompilers and their base C compilers still go by
+broken/archaic C standards, which do not allow variable declarations
+intermixed with function calls.  This leaves a very big hole in the 
+validity of the resulting program, as there is no mechanism for ensuring
+that the object constraints are always met.  A known limitation.  The 
+programmer must instead do the error prone 
+
+   int i=0;
+   Product **catalogue;
+   int j=1;
+   
+   catalogue[0]->Print();   /* ERROR ! ! !  Segmentation Violation ! ! ! */
+   catalogue = Product.Locate( "Tray", "Brads", "Screws" );
+   
+
+   Again, any application code referencing the objects must have 
+access to the most current versions of the implimentation, and must have
+the access macro's defined prior to the preprocessing of it's compilation
+unit.  Strange compiler errors - or worse, no errors and undefined behavior
+- could result.  To prevent syntactic and logical errors from being 
+inadvertently inserted, the precompiler would require knowledge of C syntax,
+which I am not sure is within the scope of this project.  I may leave this
+last item as a 'known limitation', and do it anyway.
+
+   I thought of placing the source code referencing the objects directly
+into the database tables, so that it can be guaranteed to reference only 
+the correct macros and structure definitions.  After having worked with 
+an RDBMS application development environment which does this (Oracle), I 
+no longer think this is a good idea.  It is too monolithic and centralized
+an approach, and lacks access to the bevy of traditional library, archiving,
+and change control tools available to flat-file managed source code.  Source
+code is also of arbitrary length and has no useful relational structure,
+which makes it difficult to manage using the RDBMS provided mechanisms.
+
+   Let me recap the ideas I've had so far.  First, I have thougth of placing
+the GROG meta-data into a set of GROG system tables.  This meta-data 
+describes the classes, methods, and structures known about by the system.
+Second, the classes, methods, and structures would be 'instantiated' through
+the use of predesigned code templates and a GROG class definition export
+utility.  Third, the protocol for accessing the objects is to be virtually
+identical to that of C++ object references and declarations, vis a vis
+   
+   Customer   myCustomer;
+   Customer   *customerArray[20];
+
+   customerArray[0] = &myCustomer;
+   myCustomer.Locate("Bob Cratchet");
+   customerArray[0]->print();
+
+with a known limitation that object initialization must be performed as a 
+manual coding task, rather than automatically.  Fourth, in a C 
+environment, '.h' header files would be used to contain the class
+declarations and macro definitions, while '.c' and/or '.pc' source files  
+would contain the method definitions, which would be placed into an 'ar'
+object code library.  Source files which need to access
+the classes would "#include" the header file and specify the necessary 
+'ar' library on the compiler command line.  Fifth, a small number of useful
+method definitions would be included along with the user defined methods 
+by default, to ease in code construction.  Some potential defaults would 
+include constructors, destructors, and locators.  Sixth, only the method
+names would be stored with the GROG system meta-data.  The method definitions
+themselves, including templates for the defaults, would be stored in 
+operating system flat files, with additional management provided by 
+configuration management tools like RCS, SCCS, Make, & etc. 
+
+   A seventh item was to be included here, which featured a step
+in which all code which references objects must be run through a seperate 
+preprocessor. Declarations such as the ones above mentioned
+could then be initialized automatically.  The idea was discarded due to
+the large number of syntax holes it would introduce. 
+
+   Item seven was likely to involve the insertion of CPP '#define' macros
+rather than statements of C code.  It was to turn this:
+   
+   Customer   myCustomer;
+   Customer   *customerArray[20];
+
+   customerArray[0] = &myCustomer;
+   myCustomer.Locate("Bob Cratchet");
+   customerArray[0]->print();
+
+into this:
+   
+   Customer   myCustomer;
+#define mycustomer.Locate(x) grgCustomer->Locate( &mycustomer, (x) )
+   Customer   *customerArray[20];
+
+   customerArray[0] = &myCustomer;
+   myCustomer.Locate("Bob Cratchet");
+   customerArray[0]->print();
+
+   Unfortunately, most macro processors on Unix systems today do not
+support punctuation characters (eg. '.') in the macro names.  Furthermore,
+the macro does not fully support the underlying data structuring 
+capabilities in 'C'; the array operator '[]' is an anomaly here - the last
+call to member function Customer.print() through customerArray[0]
+will not compile.
+
+   Rather than writing a new compiler to handle such deviations, I decided
+to eliminate the need.  The GROG object specification protocol instead
+allocates method pointer members as part of the class definition 
+structure.  As an added feature, GROG also predefines methods for
+object construction, destruction, persistent storage insertion and deletion,
+object and member validation, and object and member formatted output.
+
+   There are two features to note in this approach.  First, since every variable
+of a given object class gets its own local copy of the method pointers, any
+'C' data structure containing that variable can access its methods.  The 
+syntax is limited to the obtuse pointer->member operation, but it is quite 
+workable.  Second, pointers to the predefined methods can cause the
+size of the object class definition, and of resulting variables, to balloon.
+This is because validate and print methods are predefined for not only
+the object class, but all of its data members as well.  With many large
+tables, the resultant application is likely to be gigantic.
+
+
+
+
+   Technical details of the approach taken with GROG, such as a template
+of its output protocol, can be found in the GROG Technical Reference Manual.
+Known bugs and limitations which have not or will not be fixed are detailed
+in the Release Notice.  Information on what tasks can be performed with 
+GROG, and how to perform them, can be found in the User Guide.
+
+
+
+
+

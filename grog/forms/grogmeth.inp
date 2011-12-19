@@ -1,0 +1,441 @@
+
+/* Copyright (c) 1988 by the Oracle Corporation */
+
+
+SQL*FORMS_VERSION = 03.00.16.03.04
+TERSE = ON
+
+DEFINE FORM
+
+   NAME = grogmethod
+   TITLE = grogmethod
+   DEFAULT_MENU_APPLICATION = DEFAULT
+
+   DEFINE PROCEDURE
+
+      NAME = check_package_failure
+      DEFINITION = <<<
+      procedure check_package_failure is
+      begin
+          if not form_success then
+              raise FORM_TRIGGER_FAILURE;
+          end if;
+      end;
+      >>>
+
+   ENDDEFINE PROCEDURE
+
+   DEFINE PROCEDURE
+
+      NAME = clear_details
+      DEFINITION = <<<
+      procedure clear_details ( detail char, master char, opt number ) is
+      begin
+          go_block(detail);
+          check_package_failure;
+          if :system.block_status = 'CHANGED' then
+              clear_block(opt);
+              if :system.block_status = 'CHANGED' then
+                  go_block(master);
+                  raise FORM_TRIGGER_FAILURE;
+              end if;
+          end if;
+          clear_block;
+      end;
+      >>>
+
+   ENDDEFINE PROCEDURE
+
+   DEFINE PROCEDURE
+
+      NAME = clear_grogclass_details
+      DEFINITION = <<<
+      procedure clear_grogclass_details ( checkmaster boolean, opt number ) is
+      begin
+          if ( not checkmaster or ((:grogclass.NAME is not null)) ) then
+              clear_details('grogmethod', 'grogclass', opt);
+          end if ;
+          go_block('grogclass');
+      end;
+      >>>
+
+   ENDDEFINE PROCEDURE
+
+   DEFINE PROCEDURE
+
+      NAME = query_details
+      DEFINITION = <<<
+      procedure query_details ( detail char ) is
+      begin
+          go_block(detail);
+          check_package_failure;
+          execute_query;
+      end;
+      >>>
+
+   ENDDEFINE PROCEDURE
+
+   DEFINE PROCEDURE
+
+      NAME = query_grogclass_details
+      DEFINITION = <<<
+      procedure query_grogclass_details is
+      begin
+          if ( (:grogclass.NAME is not null) and :system.record_status != 'NEW' )
+       then
+              query_details('grogmethod');
+          end if;
+          go_block('grogclass');
+      end;
+      >>>
+
+   ENDDEFINE PROCEDURE
+
+   DEFINE BLOCK
+
+      NAME = grogclass
+      DESCRIPTION = grogclass
+      TABLE = grogclass
+      ROWS_DISPLAYED = 15
+      BASE_LINE = 4
+      LINES_PER_ROW = 1
+      ARRAY_SIZE = 0
+
+      DEFINE TRIGGER
+
+         NAME = KEY-CLRBLK
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         clear_block;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-CLRREC
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_record;
+         clear_grogclass_details(FALSE, ASK_COMMIT);
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-CREREC
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         create_record;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-DELREC
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         declare
+             cursor detail_cur is select 'x' from grogmethod
+                 where CLASSNAME = :grogclass.NAME;
+             detail_dummy  char(1);
+         begin
+             open detail_cur;
+             fetch detail_cur into detail_dummy;
+             if ( detail_cur%found ) then
+                 message
+             ('Cannot delete master record when matching detail records exist.');
+                 close detail_cur;
+                 raise form_trigger_failure;
+             end if;
+             close detail_cur;
+         end;
+         begin
+         delete_record;
+         clear_grogclass_details(FALSE, NO_COMMIT);
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         end;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-DOWN
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         down;
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-ENTQRY
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         enter_query;
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-EXEQRY
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         execute_query;
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = key-nxtblk
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         next_block;
+         execute_query;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-NXTREC
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         next_record;
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-NXTSET
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         next_set;
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-PRVREC
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         previous_record;
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-SCRDOWN
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         scroll_down;
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-SCRUP
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         scroll_up;
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = key-startup
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         execute_query;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE TRIGGER
+
+         NAME = KEY-UP
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         clear_grogclass_details(TRUE, ASK_COMMIT);
+         up;
+         query_grogclass_details;
+         exception when form_trigger_failure then null;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE FIELD
+
+         NAME = NAME
+         DATATYPE = CHAR
+         LENGTH = 30
+         DISPLAY_LENGTH = 30
+         QUERY_LENGTH = 30
+         PAGE = 1
+         LINE = 1
+         COLUMN = 1
+         HELP = Enter value for : NAME
+         UPDATE = OFF
+         QUERY = OFF
+
+      ENDDEFINE FIELD
+
+   ENDDEFINE BLOCK
+
+   DEFINE BLOCK
+
+      NAME = grogmethod
+      DESCRIPTION = grogmethod
+      TABLE = grogmethod
+      ROWS_DISPLAYED = 10
+      BASE_LINE = 4
+      LINES_PER_ROW = 1
+      ARRAY_SIZE = 0
+
+      DEFINE FIELD
+
+         NAME = NAME
+         DATATYPE = CHAR
+         LENGTH = 32
+         DISPLAY_LENGTH = 32
+         QUERY_LENGTH = 32
+         MANDATORY = ON
+         PAGE = 2
+         LINE = 1
+         COLUMN = 1
+         HELP = Enter value for : NAME
+
+      ENDDEFINE FIELD
+
+      DEFINE FIELD
+
+         NAME = CLASSNAME
+         DATATYPE = CHAR
+         LENGTH = 32
+         DISPLAY_LENGTH = 1
+         QUERY_LENGTH = 32
+         MANDATORY = ON
+         DISPLAYED = OFF
+         PAGE = 2
+         LINE = 1
+         COLUMN = 33
+         ENFORCE_KEY_FROM = grogclass.NAME
+         ECHO = OFF
+         INPUT = OFF
+         UPDATE = OFF
+         QUERY = OFF
+
+      ENDDEFINE FIELD
+
+      DEFINE FIELD
+
+         NAME = methodtype
+         DATATYPE = CHAR
+         LENGTH = 30
+         DISPLAY_LENGTH = 15
+         QUERY_LENGTH = 30
+         MANDATORY = ON
+         PAGE = 2
+         LINE = 1
+         COLUMN = 34
+         LOV_TEXT = <<<
+         select lower(grogclass.name)
+         into :methodtype
+         from grogclass
+         order by name
+         >>>
+         DEFAULT = t_GrogReturnCode
+
+      ENDDEFINE FIELD
+
+   ENDDEFINE BLOCK
+
+
+   DEFINE SCREEN
+
+      DEFINE PAGE
+
+         PAGE = 1
+         PAGE_XS = 0
+         PAGE_YS = 0
+         PAGE_PX0 = 0
+         PAGE_PY0 = 0
+         PAGE_PXS = 0
+         PAGE_PYS = 0
+         PAGE_SX0 = 0
+         PAGE_SY0 = 0
+         MODE = TEXT
+         LINE = 3
+         BOILER = <<<
+                 Class Name
+         >>>
+
+      ENDDEFINE PAGE
+
+      DEFINE PAGE
+
+         PAGE = 2
+         POPUP = ON
+         BORDER = ON
+         DISSOLVE = ON
+         PAGE_XS = 0
+         PAGE_YS = 0
+         PAGE_PX0 = 0
+         PAGE_PY0 = 0
+         PAGE_PXS = 0
+         PAGE_PYS = 0
+         PAGE_SX0 = 0
+         PAGE_SY0 = 0
+         MODE = TEXT
+         LINE = 3
+         BOILER = <<<
+                    Method                  Return Type
+         >>>
+
+      ENDDEFINE PAGE
+
+   ENDDEFINE SCREEN
+
+ENDDEFINE FORM

@@ -1,0 +1,74 @@
+Name
+   Makefile for GROG/SQL-C - Provide configuration control for the product 
+
+Synopsis
+   make {install} {sources} {publish} {clean} {build} {help}
+
+Description
+   The GROG/SQL-C Makefile file is a make (C) configuration file, used
+   to rebuild the GROG/SQL-C package.
+
+Options
+   install
+      Send a request to each subsystem Makefile to install itself. 
+      To be more explicit, this option automates a hierarchical installation
+      of the product to a directory used to distribute the product.
+
+   publish
+      Cut a copy of the product on distributable media, such as 8mm tape,
+      QIC tape, streaming tape, or floppy disk.  
+
+   sources
+      Retrieve all source files from the low-level file archiver. Where
+      the archiver is RCS, use 'co -u' (unlocked); where SCCS is used, 
+      use 'get' (non-editable).  Generally, will ask to overwrite locked
+      versions of source files, interactively; this option should therefore
+      not be used when make output is to be redirected to a log file, unless
+      you *know* that there are no outstanding locked files.
+
+   clean
+      Remove all intermediate target files, and final target files
+      where they are not identical to the original source names.
+
+   build
+      GROG/SQL-C is created using unpreprocessed Korn shell scripts, so
+      all of the target files are equivalent in name and content to the 
+      sources.  The build directive is provided for compatibility with
+      other development tools, and is not functional in this makefile.
+
+Files
+   ./distributions
+      Directory used by the install and publish options to define and 
+      create distributable media copies of the product.
+
+Environment
+   MAKESHELL, SHELL
+      Sets the default command shell which make uses to spawn off embedded
+      scripts.  These may be overridden inside of the Makefile; it is up 
+      to the user to determine if this is so.
+
+   Other
+      The purpose of the Makefile is to gather and provide a point-of-change
+      for variables associated with the product building process.  By 
+      definition, the file itself is an environment setting script.
+
+Diagnostics
+   Make Quitting.
+
+      Make can fail for a variety of reasons, including a failure in any
+      recursively spawned make process.  It is up to the user to review
+      the make output to determine the point and cause of the failure.
+
+Identification
+   Author: Mitch C. Amiano
+   Revision Number: 1.0; Release Date 1993/08/30
+   Copyright 1993 by Mitch C. Amiano
+
+See Also
+   make (C) manual pages
+   ksh (C) manual pages
+   sh (C) manual pages
+   tar (C) and cpio (C) for programs used to cut distributable media
+
+Limitations and Known Bugs
+   There are none.  Isn't my work _great_ ?

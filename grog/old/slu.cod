@@ -1,0 +1,13 @@
+
+	 printf( "%*.*s" 
+			sizeof(self->nmsur),
+			sizeof(self->nmsur),
+			self->nmsur
+			);
+
+	 printf( "%*.*s" 
+			sizeof(self->nmsub),
+			sizeof(self->nmsub),
+			self->nmsub
+			);
+

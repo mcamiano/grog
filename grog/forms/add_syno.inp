@@ -1,0 +1,107 @@
+
+/* Copyright (c) 1988 by the Oracle Corporation */
+
+
+SQL*FORMS_VERSION = 03.00.16.03.04
+TERSE = ON
+
+DEFINE FORM
+
+   NAME = add_synonym
+   TITLE = add_synonym
+   DEFAULT_MENU_APPLICATION = DEFAULT
+
+   DEFINE BLOCK
+
+      NAME = add_synonym
+      DESCRIPTION = add_synonym
+      TABLE = user_synonyms
+      ROWS_DISPLAYED = 1
+      BASE_LINE = 1
+      LINES_PER_ROW = 0
+      ARRAY_SIZE = 0
+
+      DEFINE TRIGGER
+
+         NAME = key-crerec
+         TRIGGER_TYPE = V3
+         TEXT = <<<
+         declare
+         host_str   char(500);
+         begin
+         if ( :add_synonym.class_name is not null and
+             :add_synonym.base_table is not null ) then
+            host_str := 'crcl.sh '|| :add_synonym.class_name ||
+               ' ' || :add_synonym.base_table ;
+            host( host_str, no_screen);
+         end if;
+         end;
+         >>>
+
+      ENDDEFINE TRIGGER
+
+      DEFINE FIELD
+
+         NAME = CLASS_NAME
+         DATATYPE = CHAR
+         LENGTH = 30
+         DISPLAY_LENGTH = 30
+         QUERY_LENGTH = 30
+         BASE_TABLE = OFF
+         MANDATORY = ON
+         PAGE = 1
+         LINE = 4
+         COLUMN = 1
+         HELP = Enter value for : SYNONYM_NAME
+         QUERY = OFF
+
+      ENDDEFINE FIELD
+
+      DEFINE FIELD
+
+         NAME = BASE_TABLE
+         DATATYPE = CHAR
+         LENGTH = 30
+         DISPLAY_LENGTH = 30
+         QUERY_LENGTH = 30
+         BASE_TABLE = OFF
+         MANDATORY = ON
+         PAGE = 1
+         LINE = 4
+         COLUMN = 34
+         HELP = Enter value for : TABLE_NAME
+         QUERY = OFF
+
+      ENDDEFINE FIELD
+
+   ENDDEFINE BLOCK
+
+
+   DEFINE SCREEN
+
+      DEFINE PAGE
+
+         PAGE = 1
+         POPUP = ON
+         BORDER = ON
+         DISSOLVE = ON
+         PAGE_XS = 70
+         PAGE_YS = 15
+         PAGE_PX0 = 0
+         PAGE_PY0 = 0
+         PAGE_PXS = 0
+         PAGE_PYS = 0
+         PAGE_SX0 = 0
+         PAGE_SY0 = 0
+         MODE = TEXT
+         LINE = 2
+         BOILER = <<<
+                               ADD CLASS
+         Class Name                       Base Table
+         >>>
+
+      ENDDEFINE PAGE
+
+   ENDDEFINE SCREEN
+
+ENDDEFINE FORM

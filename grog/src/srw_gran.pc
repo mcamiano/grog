@@ -1,0 +1,196 @@
+   /*
+    * Grog Class Definition File 
+    * Dated: 07/18/93
+    */
+
+   /*
+    * Class: srw_granted
+    */
+
+/* Ignored base-table 'srw_grant' for #include */
+#include "srw_granted.h"
+#include <stdlib.h>
+#include <stdio.h>
+Exec SQL Include sqlca.h;
+
+   /*
+    * INCLUDE OTHER HEADER FILES HERE
+    */
+
+   /*
+    * Validators for members of objects of type t_srw_granted
+    */
+
+   /*
+    * Method to validate appid member
+    */
+
+tGrogReturnCode t_srw_granted_appid_is_valid( object )
+{
+   tGrogReturnCode returnCode = (tGrogReturnCode) GROG_TRUE;
+
+   return( returnCode );
+}
+
+   /*
+    * Method to validate grantee member
+    */
+
+tGrogReturnCode t_srw_granted_grantee_is_valid( object )
+{
+   tGrogReturnCode returnCode = (tGrogReturnCode) GROG_TRUE;
+
+   return( returnCode );
+}
+
+
+   /*
+    * Validator for objects of type t_srw_granted
+    */
+
+t_GrogReturnCode t_srw_granted_is_valid( object )
+t_srw_granted *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_TRUE;
+
+   switch (1)
+   {
+      returnCode = object->appid_is_valid();
+      if ( returnCode != GROG_TRUE ) break;
+      returnCode = object->grantee_is_valid();
+      if ( returnCode != GROG_TRUE ) break;
+   default:
+      returnCode=GROG_TRUE;
+   break;
+   }
+
+   return(returnCode);
+}
+
+   /*
+    * Insertor for objects of type t_srw_granted
+    */
+
+t_GrogReturnCode t_srw_granted_insert( object )
+t_srw_granted *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_NULL;
+
+   Exec SQL Begin Declare Section;
+      double appid;
+      varchar lgrantee[240 + 1];
+   Exec SQL End Declare Section;
+
+   returnCode = object->is_valid( object );
+
+   if ( returnCode == GROG_TRUE )
+   {
+      lappid=object->appid;
+      strcpy(lgrantee.arr, object->grantee);
+
+      Exec SQL Insert Into srw_granted
+      (
+          appid
+         ,  grantee
+
+
+      )
+      Values
+      (
+          :lappid
+         ,  :lgrantee
+
+
+      )
+
+			returnCode =  (sqlca.sqlerrd[2] == 1) ? GROG_TRUE : GROG_FALSE;
+   }
+
+   return(returnCode);
+}
+
+   /*
+    * Deletor for objects of type t_srw_granted
+    */
+
+t_GrogReturnCode t_srw_granted_delete( object )
+t_srw_granted *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_NULL;
+
+   Exec SQL Begin Declare Section;
+      double appid;
+      varchar lgrantee[240 + 1];
+   Exec SQL End Declare Section;
+
+      lappid=object->appid;
+      strcpy(lgrantee.arr, object->grantee);
+
+   Exec SQL Delete From srw_granted
+   Where(
+         ( appid = :lappid or ( :lappid Is Null And appid Is Null ) )
+          And ( grantee = :lgrantee or ( :lgrantee Is Null And grantee Is Null ) )
+   );
+
+			returnCode =  (sqlca.sqlerrd[2] == 1) ? GROG_TRUE : GROG_FALSE;
+   }
+   return(returnCode);
+}
+
+   /*
+    * Destructor for objects of type t_srw_granted
+    */
+
+void t_srw_granted_destruct( object )
+t_srw_granted *object;
+{
+   free( object->self );
+   return;
+}
+
+   /*
+    * Constructor for objects of type t_srw_granted
+    */
+
+t_srw_granted *t_srw_granted_construct()
+{
+   t_srw_granted *buf=(t_srw_granted*)malloc(sizeof(t_srw_granted));
+   buf->self = buf;
+
+   { extern t_srw_granted *t_srw_granted_construct(); 
+     buf->construct=t_srw_granted_construct; }
+
+   { extern void srw_granted_destruct(); 
+     buf->destruct=t_srw_granted_destruct; }
+
+   { extern void srw_granted_insert(); 
+     buf->insert=t_srw_granted_insert; }
+
+   { extern void srw_granted_delete(); 
+     buf->delete=t_srw_granted_delete; }
+
+   { extern void srw_granted_is_valid(); 
+     buf->is_valid=t_srw_granted_is_valid; }
+   /\* <NO METHOD MEMBERS DECLARED FOR srw_granted> \*/
+
+   return(buf->self);
+}
+
+   /*
+    * Meta-object used for construction (and optionally for destruction)
+    */
+
+t_srw_granted srw_granted = {
+   
+/* appid */ (double) 0.0,
+   /* grantee */ "",
+   
+   /* self */ (t_srw_granted *) &srw_granted ,
+   /* construct */ t_srw_granted_construct,
+   /* destruct */ t_srw_granted_destruct,
+    /* insert */ t_GrogReturnCode_insert,
+    /* delete */ t_GrogReturnCode_delete
+
+};
+
+

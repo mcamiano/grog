@@ -1,0 +1,391 @@
+GROG User Guide
+
+Copyright 1993 by Mitch C. Amiano
+All Rights Reserved
+
+
+
+GROG - Generalized Relational Object Generator
+Copyright 1993 by Mitch C. Amiano
+All Rights Reserved
+
+Tasks
+
+   Create a new class hierarchy
+	Applications can be organized in GROG by making use of the database entity
+	scoping rules.  Since a synonym, view, or table created by a user is initially
+	only visible to that user, the Oracle user connection scheme provides a 
+	convenient mechanism for organizing classes together. 
+
+	To create a new class hierarchy, start by making a new Oracle user connection.
+
+	A Bourne shell script, crch.sh, is provided for this purpose.  To create a new 
+	class heirarchy named "ORD", for instance, type
+	
+	       crch.sh myself/mypassword ord
+
+	
+	Note that "myself/mypassword" must already exist as an Oracle connection with
+	DBA priveledges.
+
+   Create a new object class
+	Classes as defined in GROG make use of the SQL VIEW construct.
+	When declaring new classes, you use the crcl.sh script to create a view of
+        an existing database entity such as a synonym, a base table, or 
+        another view.
+
+	To declare a new GROG class "myord" for a base table named "order", type
+
+		crcl.sh ord/ord myord order
+	
+	Any base entities used must be visible to the "ord" account.
+
+        Created with the crcl.sh script include all columns from the base 
+        entity, and have no WHERE clauses.  To eliminate data members in an
+        inheriting class, or to provide visibility constraints to the 
+        class, it is necessary to use the interactive SQL interface to the 
+        database to create customized views.  
+
+        Customizing class declarations in this way is subject to a few 
+        limitations.  First, the view must be owned by the Oracle user
+        connection used to declare classes with crcl.  Second, it is 
+        advisable to keep any such views consistent with the SQL rules for
+        making views insertable or deletable.
+
+ 
+ Declare a new method
+	Methods declared in GROG are held in the GROGMETHOD table.  To declare 
+	a method for an existing GROG class, use the crm.sh script. 
+
+	To declare a new GROG method "myprint" for a class named "myord", type 
+
+		crm.sh ord/ord myord myprint void
+
+	myord.myprint() is declared void here because the print method does not return
+	any information, and the C 'void' type is used for functions which do not 
+	have any return codes.
+
+	The following method names are reserved  for predefined services, and should
+	not be declared by the user:
+
+		construct
+		destruct
+		insert
+		delete
+		is_valid
+		print
+
+	In addition, a set of validation methods are predefined for each data member
+	of the class.  The names for these data member validation methods are formed
+	by suffixing the string "is_valid" to the data member name.  Users should avoid
+	declaring these names as well.
+
+   Defining method bodies
+	There is no facility within GROG for defining user declared methods.  At best,
+	GROG will  generate function stubs when a class is exported, unless the 
+	no-method-stubs option is selected.  Users are expected to define method
+	bodies either in seperate source files or in the GROG exported source files.
+
+	Reserved GROG method names are generally defined upon export.  The user
+	may wish to modify the  default definitions, which are located in the exported
+	source file for a given class.
+	
+	Deleting method definitions from the source file is not advised, nor is it 
+	advised that you make direct alterations to the exported source file.  It is 
+	best to keep the user defined definitions in a seperate source file, so that
+	subsequent exports do not overwrite custom modifications.
+
+
+   Destroy method and class declarations
+	To eliminate class declarations, use the delcl.sh script:
+		
+		delcl.sh ord/ord myord
+
+	To eliminate method declarations, use the delm.sh script:
+
+		delm.sh ord/ord myord myprint
+
+   Exporting source code class declarations 
+	Global exports
+		To perform a global export of all class declarations, use the grogexp.sh
+		script:
+
+			grogexp ord/ord
+
+		To prevent generation of method stubs, use the -nms option to grogexp.sh:
+		
+			grogexp ord/ord -nms
+
+	Single class exports
+		The current version of GROG does not explicitly support single class 
+		exports.
+
+		GROG will not overwrite existing source code and header files.  You 
+		can make use of this feature to perform single class exports.  If a 
+		full export has been previously made, just remove or rename the 
+		header and source code files for the classes you want exported.  If
+		no export had been performed, use the Unix 'touch' command to
+		create empty header and source files named for the classes you
+		do NOT want exported.
+
+		For example, if you want to export the "myord" class, but not the 
+		"order" or "customer" classes, and the header and source directories
+		are "./include" and "./src", respectively, type:
+			
+			touch ./include/customer
+			touch ./src/customer
+			touch ./include/order
+			touch ./src/order
+			grogexp ord/ord
+		
+   Building applications
+   	Organizing class frameworks via Oracle User Connections
+		The GROG export utility generates source code for all classes which
+		are visible to it.  Since Oracle limits the visibility of privately owned
+		database entities to the owner, the user connection account can be
+		used to provide a scoping mechanism for classes.
+
+		Base tables are entities which may be owned by any user.  To make
+		tables owned by another user visible as a class to GROG, use the
+		"user.tablename" syntax for the base table name.  Refer to the 
+		Oracle SQL reference for more information.
+
+		All of the columns in the base table will become data members in the
+		GROG class.  If a speciallization class does not need all the data 
+		members of a base table, a view can be defined to include only
+		the columns needed.
+
+		The same rules apply to creating the views for such a specialization
+		as for when using such a view for SQL inserts.  Specifically, the view
+		must be defined with only one base table, have no calculated columns,
+		and include all key and required columns.
+
+	Defining object variables
+		When GROG exports a class, it automatically defines an instance of the
+		class, and names the instance with the name of the class.  This 
+		"meta-instance" can be used to construct new objects of the class.
+
+		The class type name itself is prefixed with the string "t_".  To define and
+		construct an object of class "myord", you would do the following:
+
+			t_myord *myorder=(*myord.construct)();
+
+		This syntax defines a pointer to a "t_myord" object, and calls the 
+		"meta-instance" myord.construct method to allocate and initialize
+		space for the new object.
+
+		Note that the C pointer syntax is used to provide a secure
+		method of definition and initialization.  Defining a non-pointer object
+		can not provide the initialization that the pointer/constructor
+		syntax does. 
+
+	Accessing object variables
+		Data Members
+			Data members of a class are accessed using the C structure
+			pointer dereferencing operator '->'.  The members can be 
+			read or set directly, as ordinary C structure members.  A 
+			preferrable method is to declare Get and Set methods
+			for each data member in the class, to provide access 
+			control.
+
+			To set the "order_number" data member of "myord", you 
+			would enter:
+				
+				myord->order_number = 4000;
+
+			To use Get and Set methods, you would declare them
+			with the crm.sh script, and might also declare a "GetNext"
+			method to increment the order number:
+
+				myord.Set_order_number( myord, myord.GetNext(myord) );
+
+		"Self" referencing
+			All class definitions exported by GROG include a self-referencing
+			data member, appropriately named "self".  "self" is assigned
+			by the constructor, so it should not be referenced before the
+			constructor is called.
+
+			The self member is of limited usefulness, except as a syntactic
+			shorthand for taking the address of an object, as in:
+
+				myordptr = &myord;   /* Assigns pointer to myord */
+				myordptr2 = myord->self;   /* Equivalent assignment */
+
+			The self member makes the intent clearer to novice coders, but
+			may make the code somewhat mudier for the more experienced.
+
+		Method Members
+			Method member access is performed in much the same manner
+			as for the constructor.  They are essentially referenced as 
+			structure members of type "pointer to function":
+
+				if ( (*myorder.is_valid)() )
+					printf( "Order is OK\n");
+				else
+					printf("Order is invalid\n");
+
+			Since method members are referenced through C structure 
+			members, it is possible to alter its value.  A different C
+			function can be pointed to, or the pointer can be set to null
+			or some other invalid value.  Since this would lead to unpredictable
+			results, and probably core dumps, it is not advisable.
+
+			No methods can be referenced in an object until it has been 
+			constructed.  The exception to this rule is the meta-instance
+			for a class, which is constructed by the exporter.  After an object
+			has been constructed, it may be used to construct other objects.
+
+		Predefined Methods
+			Predefined methods are referenced just like user declared methods,
+			with the "->" operator.  All of the predefined service methods have
+			as their first parameter a pointer to the object being serviced.
+			You can use the object pointer explicitly, or use the 
+			self member, as in:
+
+				t_myord *myorder=(*myord.construct)();
+
+				myord.print( myord );
+				myord.print( myord->self );
+
+			The following methods are predefined:
+				construct
+				destruct
+				insert
+				delete
+				is_valid
+				print
+				{datamember1}_is_valid
+				{datamember2}_is_valid
+				..
+				{datamemberN}_is_valid
+
+	Deallocating object variables
+		The destruct method deallocates the storage for an object.  As with all
+		methods, the destructor can be called from an object only after it has
+		been constructed.
+
+		After destruction, the pointer passed to the destructor is invalid, and 
+		must not be referenced again.  You risk core dumps and unpredictable
+		code if you violate this rule. 
+
+		Do not "forget" to call the destructor for objects  which go out of scope.
+		GROG does not have an automatic garbage collector, and failure to
+		destroy objects in a timely manner will lead to a memory leak.
+
+	Persistent Storage of Objects
+		Insertion
+			The insert method simply attempts to perform a SQL INSERT
+			for the object data members.  It returns GROG_FAILURE if
+			the INSERT fails, GROG_SUCCESS if it succeeds.
+			GROG_FAILURE and GROG_SUCCESS are C manifest constants
+			defined in the header file grog.h .
+			
+			As with other predefined methods, insert accepts a pointer to
+			the object it is to operate on.
+
+		Deletion
+			In contradistinction to the destructor, the delete method does 
+			not invalidate the pointer passed to it.  Instead, the delete
+			method attempts to perform a SQL DELETE statement.
+
+			As with the insert method, delete returns GROG_SUCCESS
+			or GROG_FAILURE depending on the status of the DELETE
+			execution.
+
+			The WHERE clause used in the DELETE statement attempts
+			to match the object to a database row field for field, value for
+			value.  If a data member is null, so must the database field
+			be null.  The match is not performed with key values only,
+			but against all fields corresponding to data members.
+
+	Validation
+		is_valid
+			The value of the default is_valid method is defined as the first
+			non-successful call to each data member is_valid method.  The
+			net effect is to validate the object if all the data members are
+			valid.
+
+			Since all the data member validation methods are defined as 
+			stubs returning GROG_SUCCESS, the default behavior of the
+			is_valid method is to return GROG_SUCCESS always.
+
+			Constraints which apply across data members should be 
+			coded in the is_valid method.  Constraints which apply only
+			to a data member should be coded in that data member's
+			is_valid method.
+
+	Source code compiling and linking
+		Header files and declarations
+                        The GROG export script, grogexp.sh, creates two 
+                        files for each class exported.
+
+                        The first of these is a C header file.  By default, the filename for 
+                        the header file for a given class will be the
+                        class name followed by the string ".h" .  The
+                        header files are by default located in a
+                        subdirectory of the current working directory, named "include".
+ 
+                        The class declaration header file is included in a 
+                        C file using the "#include" preprocessor directive.
+                       
+                        The headers use a common C preprocessor
+                        technique to prevent multiple inclusion within a
+                        compilation unit.  A manifest constant is defined 
+                        in each header, and inclusion is made conditional 
+                        on the (non)existance of this constant.  The name 
+                        of the manifest constant is constructed from the
+                        prefix "I_", the class name (in lower case), and
+                        the suffix "_GROG".
+
+                        If necessary, the programmer can make use of this
+                        manifest constant via the "#ifdef" or "#ifndef"
+                        preprocessor directives.  Note that the constants
+                        are defined without a value, so the "#if cons = "
+                        preprocessor construct cannot be used.
+
+                        Header files perform the following functions:
+                                declare a C struct for a class
+                                declares a C typedef for the C struct
+                                declares an external reference to the C
+                                   meta-instance variable for the class
+                                #include for the grog.h common header file
+
+                Source code files and definitions
+                        The second of the files exported by GROG is a C 
+                        source code file.  By default, the filename for
+                        the source code file will be the class name 
+                        followed by the string ".pc" .  The
+                        source code files are by default located in a
+                        subdirectory of the current working directory, 
+                        named "src".
+
+                        The source code file includes the class header file
+                        using the "#include" proprocessor directive.
+ 
+                        The source code files perform the following 
+                        functions:
+                                define class methods
+                                define a global variable of the class
+                                        typedef type for the meta-instance,
+                                perform static initialization of 
+                                        the meta-instance variable.
+ 
+                        Linking in the source code file for the class is 
+                        required to make use of any of the methods or
+                        the meta-instance variable.  
+
+                        The source file can
+                        be precompiled into a ".o" (UNIX) or ".obj" (DOS)
+                        object code file and archived into an "ar" library
+                        for linking to applications later.  To access the 
+                        code in this way, you will also need to "#include"
+                        the header class in your application's source code,
+                        as indicated in the previous section.
+
+                        Refer to your C compiler reference for details on
+                        compiling and linking C files.  Refer to the "ar" 
+                        manual page in your UNIX system for details on
+                        creating and managing library files.
+                       
+ 
+

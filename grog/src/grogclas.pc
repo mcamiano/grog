@@ -1,0 +1,176 @@
+   /*
+    * Grog Class Definition File 
+    * Dated: 07/13/93
+    */
+
+   /*
+    * Class: grogclass
+    */
+
+/* Ignored base-table 'user_views' for #include */
+#include "grogclass.h"
+#include <stdlib.h>
+#include <stdio.h>
+Exec SQL Include sqlca.h;
+
+   /*
+    * INCLUDE OTHER HEADER FILES HERE
+    */
+
+   /*
+    * Validators for members of objects of type t_grogclass
+    */
+
+   /*
+    * Method to validate name member
+    */
+
+tGrogReturnCode t_grogclass_name_is_valid( object )
+{
+   tGrogReturnCode returnCode = (tGrogReturnCode) GROG_TRUE;
+
+   return( returnCode );
+}
+
+
+   /*
+    * Validator for objects of type t_grogclass
+    */
+
+t_GrogReturnCode t_grogclass_is_valid( object )
+t_grogclass *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_TRUE;
+
+   switch (1)
+   {
+	case 1:
+      returnCode = object->name_is_valid();
+      if ( returnCode != GROG_TRUE ) break;
+   default:
+      returnCode=GROG_TRUE;
+   break;
+   }
+
+   return(returnCode);
+}
+
+   /*
+    * Insertor for objects of type t_grogclass
+    */
+
+t_GrogReturnCode t_grogclass_insert( object )
+t_grogclass *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_NULL;
+
+   Exec SQL Begin Declare Section;
+      varchar lname[30 + 1];
+   Exec SQL End Declare Section;
+
+   returnCode = object->is_valid( object );
+
+   if ( returnCode == GROG_TRUE )
+   {
+      strcpy(lname.arr, object->name);
+
+      Exec SQL Insert Into grogclass
+      (
+          name
+
+
+      )
+      Values
+      (
+          :lname
+
+
+      )
+
+			returnCode =  (sqlca.sqlerrd[2] == 1) ? GROG_TRUE : GROG_FALSE;
+   }
+
+   return(returnCode);
+}
+
+   /*
+    * Deletor for objects of type t_grogclass
+    */
+
+t_GrogReturnCode t_grogclass_delete( object )
+t_grogclass *object;
+{
+   t_GrogReturnCode returnCode=(t_GrogReturnCode)GROG_NULL;
+
+   Exec SQL Begin Declare Section;
+      varchar lname[30 + 1];
+   Exec SQL End Declare Section;
+
+      strcpy(lname.arr, object->name);
+
+   Exec SQL Delete From grogclass
+   Where(
+         ( name = :lname or ( :lname Is Null And name Is Null ) )
+   );
+
+			returnCode =  (sqlca.sqlerrd[2] == 1) ? GROG_TRUE : GROG_FALSE;
+   }
+   return(returnCode);
+}
+
+   /*
+    * Destructor for objects of type t_grogclass
+    */
+
+void t_grogclass_destruct( object )
+t_grogclass *object;
+{
+   free( object->self );
+   return;
+}
+
+   /*
+    * Constructor for objects of type t_grogclass
+    */
+
+t_grogclass *t_grogclass_construct()
+{
+   t_grogclass *buf=(t_grogclass*)malloc(sizeof(t_grogclass));
+   buf->self = buf;
+
+   { extern t_grogclass *t_grogclass_construct(); 
+     buf->construct=t_grogclass_construct; }
+
+   { extern void grogclass_destruct(); 
+     buf->destruct=t_grogclass_destruct; }
+
+   { extern void grogclass_insert(); 
+     buf->insert=t_grogclass_insert; }
+
+   { extern void grogclass_delete(); 
+     buf->delete=t_grogclass_delete; }
+
+   { extern void grogclass_is_valid(); 
+     buf->is_valid=t_grogclass_is_valid; }
+   /\* <NO METHOD MEMBERS DECLARED FOR grogclass> \*/
+
+   return(buf->self);
+}
+
+   /*
+    * Meta-object used for construction (and optionally for destruction)
+    */
+
+t_grogclass grogclass = {
+   
+/* name */ "",
+   
+   /* self */ (t_grogclass *) &grogclass ,
+   /* construct */ t_grogclass_construct,
+   /* destruct */ t_grogclass_destruct,
+    /* insert */ t_GrogReturnCode_insert,
+    /* delete */ t_GrogReturnCode_delete
+
+};
+
+
